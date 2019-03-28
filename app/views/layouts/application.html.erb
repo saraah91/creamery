@@ -1,7 +1,30 @@
 <!DOCTYPE html>
 <html>
+
   <head>
-    <title>Phase3Starter</title>
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="../stylesheet" type="text/css" href="style.css">
+    <font face="Comic Sans MS">
+    <script src="navbar.js"></script>
+
+
+<div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="/">Home</a>
+    <a href = "/stores">Stores</a>
+    <a href = "/employees">Employees</a>
+    <a href = "/assignments">Assignments</a>
+</div>
+
+
+
+      <span style="font-size:30px; position:absolute; right:0px;cursor:pointer" onclick="openNav()">&#9776;</span>
+
+
+
+    <title>Scoops n' Smiles</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
   
@@ -12,4 +35,9 @@
   <body>
     <%= yield %>
   </body>
+  <footer>
+<div class="row">
+<div class="col s8 center">
+<%= render partial: 'partials/footer' %>
+</footer> 
 </html>

@@ -13,3 +13,16 @@
  *= require_tree .
  *= require_self
  */
+ 
+
+@import "bootstrap";
+@import 'datetime_picker_input'; 
+
+
+html {
+  margin: 75px 75px 75px 100px;
+  background-image: url('icecream.jpg');
+}
+
+
+
