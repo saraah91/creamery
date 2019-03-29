@@ -1,13 +1,36 @@
-/* resource for the navbar: https://stackoverflow.com/questions/39263735/right-side-panel */
-p {
-  background-color: #F9DFE9;
-}
-
 body {
-        font-family: "Lato", sans-serif;
-        transition: background-color .5s;
+    font-family: "Lato", sans-serif;
+    transition: background-color .5s;
+    background-image: url('icecream.jpg');
+
 }
 
+p {
+  margin: 25px 50px 75px 100px;
+  color: #7ED9FF;
+  text-shadow: -1px 0 yellow, 0 1px yellow, 1px 0 yellow, 0 -1px yellow;
+}
+    
+footer, span {
+    margin-right: 75px;
+    color: #7ED9FF;
+    text-shadow: -1px 0 yellow, 0 1px yellow, 1px 0 yellow, 0 -1px yellow;
+}
+
+h1 {
+    font-size: 60px;
+    color: #FD8A8A;
+    text-shadow: -1px 0 yellow, 0 1px yellow, 1px 0 yellow, 0 -1px yellow;
+}
+
+h3 {
+    margin-top: 25px;
+    margin-right: 75px;
+    margin-left: 100px;
+    color: #FD8A8A;
+    text-shadow: -1px 0 yellow, 0 1px yellow, 1px 0 yellow, 0 -1px yellow;
+
+}
     .sidenav {
         height: 100%;
         width: 0;
