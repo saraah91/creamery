@@ -4,5 +4,6 @@ Rails.application.routes.draw do
   resources :assignments
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
+  post "/employees/new" => "employees#new"
 
 end

@@ -11,32 +11,36 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :store_id %>
-    <%= form.number_field :store_id %>
+    <%= form.text_field :store_id, :class => "form-control", :type => "number" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :employee_id %>
-    <%= form.number_field :employee_id %>
+    <%= form.text_field :employee_id, :class => "form-control", :type => "number" %>
   </div>
 
-  <div class="field">
+  <div class="form-row">
+    <div class="form-group col-md-6">
     <%= form.label :start_date %>
-    <%= form.date_select :start_date %>
+    <%= form.text_field :start_date, :id => "date", :class => "form-control", :value => "10/24/1984" %>
   </div>
 
-  <div class="field">
+    <div class="form-group col-md-6">
     <%= form.label :end_date %>
-    <%= form.date_select :end_date %>
+    <%= form.text_field :end_date, :id => "date", :class => "form-control", :value => "10/24/1984" %>
+  </div>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :pay_level %>
-    <%= form.number_field :pay_level %>
+    <%= form.text_field :pay_level, :class => "form-control", :type => "number" %>
   </div>
 
-  <div class="actions">
-    <%= form.submit %>
+  <div class="col-auto my-1">
+    <center>
+    <%= form.submit"Submit", :class => 'btn btn-outline-info' %>
+    </center>
   </div>
 <% end %>
