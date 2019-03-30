@@ -3,13 +3,36 @@ class EmployeesController < ApplicationController
   before_action :set_employee, only: [:show, :edit, :update, :destroy]
 
   def index
-    @employees = Employee.alphabetical
+    @employees = Employee.all
   end
   
   # this is special action we've created to give us the list of managers
   def managers
-      # should I do this?
-  #  @employees = Employee.proposed.by_category.paginate(:page => params[:page]).per_page(10)
+    @employees = Employee.managers
+  end
+  
+  def admins
+    @employees = Employee.admins
+  end
+  
+  def employees
+    @employees = Employee.regulars
+  end
+  
+  def inactive
+    @employees = Employee.inactive
+  end
+  
+  def active
+    @employees = Employee.active
+  end
+  
+  def is_18_or_older
+    @employees = Employee.is_18_or_older
+  end
+  
+  def younger_than_18
+    @employees = Employee.younger_than_18
   end
   
   def show

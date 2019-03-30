@@ -24,6 +24,8 @@ class Employee < ApplicationRecord
   scope :managers,        -> { where(role: 'manager') }
   scope :admins,          -> { where(role: 'admin') }
   scope :alphabetical,    -> { order('last_name, first_name') }
+  scope :by_role,    -> { order('role ASC') }
+
   
   # Other methods
   def name

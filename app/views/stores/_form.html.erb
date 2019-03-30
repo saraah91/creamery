@@ -31,7 +31,7 @@
 
     <div class="form-group col-md-6">
     <%= form.label :state %>
-    <%= form.text_field :state , :class => "form-control" %>
+    <%= form.select :state, options_for_select([["Ohio","OH"],["Pennsylvania","PA"],["West Virginia", "WV"]]), :class => "form-control" %>
   </div>
 </div>
   <div class="form-group">
@@ -41,18 +41,18 @@
 
 <div class="form-group">
       <%= form.label :phone %>
-    <%= form.text_field :phone, :type => "number", :class => "form-control"  %>
+    <%= form.text_field :phone, :class => "form-control"  %>
   </div>
 
   <div class="form-row">
     <div class="form-group col-md-6">
     <%= form.label :latitude %>
-    <%= form.text_field :latitud, :type => "number", :class => "form-control"  %>
+    <%= form.text_field :latitud, :class => "form-control"  %>
   </div>
 
   <div class="form-group col-md-6">
     <%= form.label :longitude %>
-    <%= form.text_field :longitude, :type => "number", :class => "form-control"  %>
+    <%= form.text_field :longitude, :class => "form-control"  %>
   </div>
   </div>
 

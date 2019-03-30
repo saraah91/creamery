@@ -9,6 +9,14 @@ class StoresController < ApplicationController
   
   def show
   end
+  
+  def inactive
+    @stores = Stores.inactive
+  end
+  
+  def active
+    @stores = Stores.active
+  end
 
     # what if the assigned employee doesn't exist? 
     # do I have to include relationships?

@@ -1,9 +1,18 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Employees</h1>
-<div align="right">
-<%= link_to 'New Employee', new_employee_path %>
+
+<div align=right>
+<%= link_to 'New Employee', new_employee_path %> 
 </div>
+<%= link_to 'Managers', method: :managers %>|
+<%= link_to 'Admins', method: :admins %>|
+<%= link_to 'Employees', method: :employees %>|
+<%= link_to 'Inactive', method: :inactive %>|
+<%= link_to 'Active', method: :active %>|
+<%= link_to '18 years or older', method: :is_18_or_older %>|
+<%= link_to 'Younger than 18', method: :younger_than_18 %>
+
 <br>
 <br>
 
@@ -22,7 +31,7 @@
   </thead>
 
   <tbody>
-    <% @employees.each do |employee| %>
+    <% @employees.by_role.alphabetical.each do |employee| %>
       <tr>
         <td><%= employee.first_name %></td>
         <td><%= employee.last_name %></td>
