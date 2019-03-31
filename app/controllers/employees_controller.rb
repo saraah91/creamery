@@ -6,7 +6,6 @@ class EmployeesController < ApplicationController
     @employees = Employee.all
   end
   
-  # this is special action we've created to give us the list of managers
   def managers
     @employees = Employee.managers
   end
@@ -15,7 +14,7 @@ class EmployeesController < ApplicationController
     @employees = Employee.admins
   end
   
-  def employees
+  def regulars
     @employees = Employee.regulars
   end
   
@@ -78,7 +77,7 @@ class EmployeesController < ApplicationController
 
     # Never trust parameters from users (potential hackers), but rather only allow the white list through.
     def employee_params
-      params.require(:employee).permit(:first_name, :last_name, :ssn, :date_of_birth, :phone, :role, :active => [] )
+      params.require(:employee).permit(:first_name, :last_name, :ssn, :date_of_birth, :phone, :role, :active)
     end
 
 

@@ -11,15 +11,13 @@ class StoresController < ApplicationController
   end
   
   def inactive
-    @stores = Stores.inactive
+    @stores = Store.inactive
   end
   
   def active
-    @stores = Stores.active
+    @stores = Store.active
   end
 
-    # what if the assigned employee doesn't exist? 
-    # do I have to include relationships?
   def new
     @store = Store.new
   end
@@ -60,7 +58,7 @@ class StoresController < ApplicationController
 
     # Never trust parameters from users (potential hackers), but rather only allow the white list through.
     def store_params
-      params.require(:store).permit(:name, :street, :city, :state, :zip, :phone, :latitude, :longitude, :active => [])
+      params.require(:store).permit(:name, :street, :city, :state, :zip, :phone, :latitude, :longitude, :active)
     end
     
 end

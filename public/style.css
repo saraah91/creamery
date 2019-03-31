@@ -45,14 +45,12 @@
 body {
     font-family: "Lato", sans-serif;
     transition: background-color .5s;
-    background-image: url('icecream.jpg');
-
 }
 
 p {
   margin: 25px 50px 75px 100px;
-  color: #7ED9FF;
-  text-shadow: -1px 0 yellow, 0 1px yellow, 1px 0 yellow, 0 -1px yellow;
+  background-color: white;
+     color: #FD8A8A;
 }
     
 footer, span {

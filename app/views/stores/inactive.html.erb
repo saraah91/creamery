@@ -29,7 +29,7 @@
   </thead>
 
   <tbody>
-    <% @stores.alphabetical.each do |store| %>
+    <% @stores.inactive.alphabetical.each do |store| %>
       <tr>
         <td><%= store.name %></td>
         <td><%= store.street %></td>

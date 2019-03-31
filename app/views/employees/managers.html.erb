@@ -32,7 +32,7 @@
   </thead>
 
   <tbody>
-    <% @employees.by_role.alphabetical.each do |employee| %>
+    <% @employees.managers.alphabetical.each do |employee| %>
       <tr>
         <td><%= employee.first_name %></td>
         <td><%= employee.last_name %></td>

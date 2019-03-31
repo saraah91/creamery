@@ -5,7 +5,6 @@
 <div align=right>
 <%= link_to 'New Employee', new_employee_path %> 
 </div>
-<%= link_to 'All', employees_path %>|
 <%= link_to 'Managers', employees_managers_path %>|
 <%= link_to 'Admins', employees_admins_path %>|
 <%= link_to 'Employees', employees_regulars_path %>|
@@ -32,7 +31,7 @@
   </thead>
 
   <tbody>
-    <% @employees.by_role.alphabetical.each do |employee| %>
+    <% @employees.active.each do |employee| %>
       <tr>
         <td><%= employee.first_name %></td>
         <td><%= employee.last_name %></td>
