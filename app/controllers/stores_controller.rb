@@ -17,6 +17,11 @@ class StoresController < ApplicationController
   def active
     @stores = Store.active
   end
+  
+  def active_id
+    @stores = Store.active
+  end
+
 
   def new
     @store = Store.new

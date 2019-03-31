@@ -38,6 +38,10 @@ class AssignmentsController < ApplicationController
     @assignments = Assignment.for_role
   end
   
+  def index
+    @assignments = Assignment.all
+  end
+  
   def show
   end
 

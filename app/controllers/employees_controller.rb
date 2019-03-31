@@ -1,6 +1,6 @@
 class EmployeesController < ApplicationController
-    
   before_action :set_employee, only: [:show, :edit, :update, :destroy]
+
 
   def index
     @employees = Employee.all
@@ -23,6 +23,10 @@ class EmployeesController < ApplicationController
   end
   
   def active
+    @employees = Employee.active
+  end
+  
+  def active_id
     @employees = Employee.active
   end
   

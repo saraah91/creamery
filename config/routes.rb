@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  
+  #employee routes
   get "/employees/new" => "employees#new"
   get "/employees/managers" => "employees#managers"
   get "/employees/regulars" => "employees#regulars"
@@ -10,9 +12,11 @@ Rails.application.routes.draw do
   get "/employees/is_18_or_older" => "employees#is_18_or_older"
   get "/employees/younger_than_18" => "employees#younger_than_18"
   
+  #store routes
   get "/stores/inactive" => "stores#inactive"
   get "/stores/active" => "stores#active"
 
+  #assignment routes
   get "/assignments/current" => "assignments#current"
   get "/assignments/past" => "assignments#past"
   get "/assignments/by_store" => "assignments#by_store"
@@ -22,6 +26,11 @@ Rails.application.routes.draw do
   get "/assignments/for_employee" => "assignments#for_employee"
   get "/assignments/for_pay_level" => "assignments#for_pay_level"
   get "/assignments/for_role" => "assignments#for_role"
+  
+  #extra for assignment form
+  get "/employees/active_id" => "employees#active_id"
+  get "/stores/active_id" => "stores#active_id"
+
 
   
   resources :stores

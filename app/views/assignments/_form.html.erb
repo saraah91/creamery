@@ -11,16 +11,17 @@
     </div>
   <% end %>
 
-  <div class="form-group">
+<div class="row">
+    <div class="col-8">
+      <div class="form-row">
+        <div class="form-group col-md-6">
     <%= form.label :store_id %>
-    <%= form.text_field :store_id, :class => "form-control", :type => "number" %>
-  </div>
-
-  <div class="form-group">
+    <%= form.text_field :store_id, :class => "form-control", :type => "number" %></div>
+        <div class="form-group col-md-6">
     <%= form.label :employee_id %>
-    <%= form.text_field :employee_id, :class => "form-control", :type => "number" %>
-  </div>
-
+    <%= form.text_field :employee_id, :class => "form-control", :type => "number" %></div>
+    </div>
+    
   <div class="form-row">
     <div class="form-group col-md-6">
     <%= form.label :start_date %>
@@ -37,6 +38,21 @@
     <%= form.label :pay_level %>
     <%= form.text_field :pay_level, :class => "form-control", :type => "number" %>
   </div>
+    </div>
+    
+    
+    
+    
+    
+    <div class="col-4">
+    <iframe src="/stores/active_id" width="250" height="200"></iframe>
+    <iframe src="/employees/active_id" width="250" height="200"></iframe>
+      </div>
+</div>
+
+
+
+
 
   <div class="col-auto my-1">
     <center>
