@@ -31,7 +31,7 @@
   </thead>
 
   <tbody>
-    <% @assignments.by_store.chronological.each do |assignment| %>
+    <% @assignments.chronological.each do |assignment| %>
       <tr>
         <td><%= assignment.store_id %></td>
         <td><%= assignment.employee_id %></td>

@@ -1,14 +1,55 @@
 require 'test_helper'
 
 class EmployeesControllerTest < ActionDispatch::IntegrationTest
-  setup do
-    @employee = employees(:one)
-  end
+    setup do
+      create_contexts
+      #@employee = employees(:one)
+    end
+
+    teardown do
+      remove_contexts
+    end
 
   test "should get index" do
     get employees_url
     assert_response :success
   end
+  
+  test "should get manager" do
+    get managers_employees_url
+    assert_response :success
+  end
+
+  test "should get admins" do
+    get admins_employees_url
+    assert_response :success
+  end
+
+  test "should get regulars" do
+    get regulars_employees_url
+    assert_response :success
+  end
+
+  test "should get inactive employees" do
+    get inactive_employees_url
+    assert_response :success
+  end
+  
+  test "should get active employees" do
+    get active_employees_url
+    assert_response :success
+  end
+  
+  test "should get employees 18 years or older" do
+    get is_18_or_older_employees_url
+    assert_response :success
+  end
+
+  test "should get employees younger than 18" do
+    get younger_than_18_employees_url
+    assert_response :success
+  end
+
 
   test "should get new" do
     get new_employee_url

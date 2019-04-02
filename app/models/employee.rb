@@ -19,7 +19,7 @@ class Employee < ApplicationRecord
   scope :younger_than_18, -> { where('date_of_birth > ?', 18.years.ago.to_date) }
   scope :is_18_or_older,  -> { where('date_of_birth <= ?', 18.years.ago.to_date) }
   scope :active,          -> { where(active: true) }
-  scope :inactive,        -> { where(active: "") }
+  scope :inactive,        -> { where(active: false) }
   scope :regulars,        -> { where(role: 'employee') }
   scope :managers,        -> { where(role: 'manager') }
   scope :admins,          -> { where(role: 'admin') }

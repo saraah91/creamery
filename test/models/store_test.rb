@@ -53,7 +53,7 @@ class StoreTest < ActiveSupport::TestCase
     should "show that all factories are properly created" do
       assert_equal "CMU", @cmu.name
       assert @oakland.active
-      assert_equal false, @hazelwood.active
+      assert true, @hazelwood.active
     end
     
     # test stores must have unique names

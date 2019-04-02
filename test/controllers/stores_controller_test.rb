@@ -1,12 +1,27 @@
 require 'test_helper'
 
 class StoresControllerTest < ActionDispatch::IntegrationTest
-  setup do
-    @store = stores(:one)
-  end
+    setup do
+      create_contexts
+      #@store = stores(:one)
+    end
+
+    teardown do
+      remove_contexts
+    end
 
   test "should get index" do
     get stores_url
+    assert_response :success
+  end
+  
+  test "should get active" do
+    get active_stores_url
+    assert_response :success
+  end
+  
+  test "should get inactive" do
+    get inactive_stores_url
     assert_response :success
   end
 

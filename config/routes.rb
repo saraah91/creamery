@@ -27,10 +27,6 @@ Rails.application.routes.draw do
   get "/assignments/for_pay_level" => "assignments#for_pay_level"
   get "/assignments/for_role" => "assignments#for_role"
   
-  #extra for assignment form
-  get "/employees/active_id" => "employees#active_id"
-  get "/stores/active_id" => "stores#active_id"
-
 
   
   resources :stores

@@ -18,10 +18,6 @@ class StoresController < ApplicationController
     @stores = Store.active
   end
   
-  def active_id
-    @stores = Store.active
-  end
-
 
   def new
     @store = Store.new
@@ -52,7 +48,7 @@ class StoresController < ApplicationController
 
   def destroy
     @store.destroy
-    redirect_to assignments_url
+    redirect_to stores_url
   end
 
   private

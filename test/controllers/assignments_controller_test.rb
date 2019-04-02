@@ -1,12 +1,43 @@
 require 'test_helper'
 
 class AssignmentsControllerTest < ActionDispatch::IntegrationTest
-  setup do
-    @assignment = assignments(:one)
-  end
+  
+    setup do
+      create_contexts
+      #@assignment = assignments(:one)
+    end
+
+    teardown do
+      remove_contexts
+    end
 
   test "should get index" do
     get assignments_url
+    assert_response :success
+  end
+  
+  test "should get current assignments" do
+    get current_assignments_url
+    assert_response :success
+  end
+  
+  test "should get past assignments" do
+    get past_assignments_url
+    assert_response :success
+  end
+  
+  test "should get assignments by store" do
+    get by_store_assignments_url
+    assert_response :success
+  end
+  
+  test "should get assignments by employee" do
+    get by_employee_assignments_url
+    assert_response :success
+  end
+  
+  test "should get assignments chronologically" do
+    get chronological_assignments_url
     assert_response :success
   end
 

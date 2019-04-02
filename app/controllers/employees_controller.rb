@@ -26,10 +26,6 @@ class EmployeesController < ApplicationController
     @employees = Employee.active
   end
   
-  def active_id
-    @employees = Employee.active
-  end
-  
   def is_18_or_older
     @employees = Employee.is_18_or_older
   end
