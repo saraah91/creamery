@@ -31,7 +31,7 @@ class AssignmentsController < ApplicationController
   end
   
   def for_pay_level
-    @assignments = Assignment.for_pay_level(2)
+    @assignments = Assignment.for_pay_level(1)
   end
   
   def for_role
