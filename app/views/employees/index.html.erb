@@ -12,7 +12,8 @@
 <%= link_to 'Inactive', employees_inactive_path %>|
 <%= link_to 'Active', employees_active_path %>|
 <%= link_to '18 years or older', employees_is_18_or_older_path %>|
-<%= link_to 'Younger than 18', employees_younger_than_18_path %>
+<%= link_to 'Younger than 18', employees_younger_than_18_path %><br>
+<%= link_to 'Proper Name', employees_proper_name_path %>
 
 <br>
 <br>
@@ -32,7 +33,7 @@
   </thead>
 
   <tbody>
-    <% @employees.by_role.alphabetical.each do |employee| %>
+    <% @employees.each do |employee| %>
       <tr>
         <td><%= employee.first_name %></td>
         <td><%= employee.last_name %></td>

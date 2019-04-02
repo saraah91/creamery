@@ -2,12 +2,12 @@ require 'test_helper'
 
 class EmployeesControllerTest < ActionDispatch::IntegrationTest
     setup do
-      create_contexts
+      create_employees
       #@employee = employees(:one)
     end
 
     teardown do
-      remove_contexts
+      remove_employees
     end
 
   test "should get index" do
@@ -16,40 +16,39 @@ class EmployeesControllerTest < ActionDispatch::IntegrationTest
   end
   
   test "should get manager" do
-    get managers_employees_url
+    get '/employees/managers'
     assert_response :success
   end
 
   test "should get admins" do
-    get admins_employees_url
+    get '/employees/admins'
     assert_response :success
   end
 
-  test "should get regulars" do
-    get regulars_employees_url
+  test "s/hould get regulars" do
+    get 'employees/employees'
     assert_response :success
   end
 
   test "should get inactive employees" do
-    get inactive_employees_url
+    get '/employees/inactive'
     assert_response :success
   end
   
   test "should get active employees" do
-    get active_employees_url
+    get '/employees/active'
     assert_response :success
   end
   
   test "should get employees 18 years or older" do
-    get is_18_or_older_employees_url
+    get '/employees/is_18_or_older'
     assert_response :success
   end
 
   test "should get employees younger than 18" do
-    get younger_than_18_employees_url
+    get '/employees/younger_than_18'
     assert_response :success
   end
-
 
   test "should get new" do
     get new_employee_url
@@ -58,32 +57,41 @@ class EmployeesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create employee" do
     assert_difference('Employee.count') do
-      post employees_url, params: { employee: { active: @employee.active, date_of_birth: @employee.date_of_birth, first_name: @employee.first_name, last_name: @employee.last_name, phone: @employee.phone, role: @employee.role, ssn: @employee.ssn } }
+      post employees_url, params: { employee: { active: @ed.active, date_of_birth: @ed.date_of_birth, first_name: @ed.first_name, last_name: @ed.last_name, phone: @ed.phone, role: @ed.role, ssn: "666667666" } }
     end
 
     assert_redirected_to employee_url(Employee.last)
   end
+  
+   test "should not create employee" do
+    assert_difference('Employee.count') do
+      post employees_url, params: { employee: { active: @ed.active, date_of_birth: @ed.date_of_birth, first_name: @ed.first_name, last_name: @ed.last_name, phone: @ed.phone, role: @ed.role, ssn: "666666666"} }
+    end
+  end
+
 
   test "should show employee" do
-    get employee_url(@employee)
+    get employee_url(@ed)
     assert_response :success
   end
 
   test "should get edit" do
-    get edit_employee_url(@employee)
+    get edit_employee_url(@ed)
     assert_response :success
   end
 
   test "should update employee" do
-    patch employee_url(@employee), params: { employee: { active: @employee.active, date_of_birth: @employee.date_of_birth, first_name: @employee.first_name, last_name: @employee.last_name, phone: @employee.phone, role: @employee.role, ssn: @employee.ssn } }
-    assert_redirected_to employee_url(@employee)
+    patch employee_url(@ed), params: { employee: { active: @ed.active, date_of_birth: @ed.date_of_birth, first_name: @ed.first_name, last_name: @ed.last_name, phone: @ed.phone, role: @ed.role, ssn: @ed.ssn } }
+    assert_redirected_to employee_url(@ed)
   end
 
   test "should destroy employee" do
     assert_difference('Employee.count', -1) do
-      delete employee_url(@employee)
+      delete employee_url(@ed)
     end
 
     assert_redirected_to employees_url
   end
+  
+  
 end

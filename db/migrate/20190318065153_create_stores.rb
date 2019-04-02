@@ -9,7 +9,7 @@ class CreateStores < ActiveRecord::Migration[5.2]
       t.string :phone
       t.float :latitude
       t.float :longitude
-      t.boolean :active
+      t.boolean :active, :default => true
 
       t.timestamps
     end

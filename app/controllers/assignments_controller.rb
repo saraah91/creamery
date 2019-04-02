@@ -23,23 +23,23 @@ class AssignmentsController < ApplicationController
   end
   
   def for_store
-    @assignments= Assignment.for_store
+    @assignments= Assignment.for_store(1)
   end
 
   def for_employee
-    @assignments = Assignment.for_employee
+    @assignments = Assignment.for_employee(1)
   end
   
   def for_pay_level
-    @assignments = Assignment.for_pay_level
+    @assignments = Assignment.for_pay_level(2)
   end
   
   def for_role
-    @assignments = Assignment.for_role
+    @assignments = Assignment.for_role("employee")
   end
   
   def index
-    @assignments = Assignment.all
+    @assignments = Assignment.all.by_store.chronological
   end
   
   def show

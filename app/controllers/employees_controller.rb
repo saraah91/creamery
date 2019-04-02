@@ -33,6 +33,10 @@ class EmployeesController < ApplicationController
   def younger_than_18
     @employees = Employee.younger_than_18
   end
+    
+  def proper_name
+    @employees = Employee.all
+  end
   
   def show
   end
