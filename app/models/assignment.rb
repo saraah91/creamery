@@ -6,6 +6,7 @@ class Assignment < ApplicationRecord
   # Relationships
   belongs_to :employee
   belongs_to :store
+  has_many :shifts
   
   # Validations
   validates_numericality_of :pay_level, greater_than: 0, less_than: 7,only_integer: true

@@ -26,7 +26,7 @@ class EmployeesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "s/hould get regulars" do
-    get 'employees/regulars'
+    get '/employees/regulars'
     assert_response :success
   end
 

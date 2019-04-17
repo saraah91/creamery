@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  shift_id: MyString
+  integer: MyString
+  job_id: MyString
+  integer: MyString
+
+two:
+  shift_id: MyString
+  integer: MyString
+  job_id: MyString
+  integer: MyString

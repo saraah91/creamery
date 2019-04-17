@@ -26,7 +26,7 @@ setup do
 
   test "should create assignment" do
     assert_difference('Assignment.count') do
-      post assignments_url, params: { assignment: { employee_id: 99, end_date: @assign_ben.end_date, pay_level: @assign_ben.pay_level, start_date: @assign_ben.start_date, store_id: 2 } }
+      post assignments_url, params: { assignment: { employee_id: 1, end_date: @assign_ben.end_date, pay_level: @assign_ben.pay_level, start_date: @assign_ben.start_date, store_id: 1 } }
     end
 
     assert_redirected_to assignment_url(Assignment.last)
