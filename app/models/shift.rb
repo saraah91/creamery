@@ -18,25 +18,23 @@ class Shift < ApplicationRecord
     validate :current_assignment
     
     #Scopes
-    scope :completed,     -> {self.shift.completed}
-    scope :incomplete,    -> { (self.shift.completed = false) }
     scope :for_store,     ->(store_id) { where("store_id = ?", store_id) }
     scope :for_employee,  ->(employee_id) { where("employee_id = ?", employee_id) }
-    scope :past,          -> { where.not(end_date: nil) } #this doesn't make sense to me
-    scope :upcoming,      -> { }
-    scope :for_next_days  -> { where ("")
-
-    
-    
+    scope :completed,     -> { self.shift.completed }
+    scope :incomplete,    -> { (self.shift.completed = false) }
+    scope :past,          ->{ where('date < ?', Date.today) } 
+    scope :upcoming,      ->{ where('date >= ?', Date.today)  }
+    scope :for_next_days, ->(x) { where("date between ? and ?", Date.today, x.days.from_now.to_date) } #pls see
+    scope :for_past_days, ->(x) { where("date between ? and ?", x.days.ago.to_date, 1.day.ago.to_date) } #pls see
 
     def current_assignment
-        unless self.assignment.end_date.nil? #end date in the future
+        unless self.assignment.end_date >= Date.today?
             errors.add(:assignment_id, "assignment is not current at the creamery")
         end
     end
     
     def completed?
-        if self.shift_jobs > 0? 
+        if self.shift_jobs > 0
             true
         else
             false
@@ -44,7 +42,7 @@ class Shift < ApplicationRecord
     end    
 	
 	def end_after_three_hours
-	    self.end_time = self.start_time + 180 # minutes or hours?
+	    self.end_time = 3.hours.from_self.start_time 
 	end
 	
 	def start_now

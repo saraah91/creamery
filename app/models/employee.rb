@@ -1,4 +1,5 @@
 class Employee < ApplicationRecord
+  has_secure_password
  # Callbacks
   before_save :reformat_phone
   before_validation :reformat_ssn

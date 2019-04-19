@@ -6,6 +6,13 @@ Rails.application.routes.draw do
   resources :shift_jobs
   resources :jobs
   resources :shifts
+  resources :demos
+  
+  #Login links
+  resources :demos, only: [:new, :create, :destroy]
+  get 'demos/new', to: 'demos#new', as: :login
+  get 'demos/destroy', to: 'demos#destroy', as: :logout
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   
   #employee routes for scopes
