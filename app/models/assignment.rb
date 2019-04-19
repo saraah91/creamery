@@ -16,7 +16,7 @@ class Assignment < ApplicationRecord
   validate :store_is_active_in_system, on: :create
   validates_presence_of :employee_id, on: :update
   validates_presence_of :store_id, on: :update
-  
+
   # Scopes
   scope :current,       -> { where(end_date: nil) }
   scope :past,          -> { where.not(end_date: nil) }
@@ -33,7 +33,7 @@ class Assignment < ApplicationRecord
   
   def end_previous_assignment
     current_assignment = Employee.find(self.employee_id).current_assignment
-    if current_assignment.nil?
+    if current_assignment.nil? 
       return true 
     else
       current_assignment.update_attribute(:end_date, self.start_date.to_date)
