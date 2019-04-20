@@ -56,8 +56,4 @@ class Assignment < ApplicationRecord
   end
 
     
-    
-    
-    
-    
 end

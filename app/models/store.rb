@@ -1,6 +1,7 @@
 class Store < ApplicationRecord
-# Callbacks
+  # Callbacks
   before_save :reformat_phone
+  before_destroy :make_inactive
   
   # Relationships
   has_many :assignments
@@ -37,6 +38,10 @@ class Store < ApplicationRecord
     phone = self.phone.to_s  # change to string in case input as all numbers 
     phone.gsub!(/[^0-9]/,"") # strip all non-digits
     self.phone = phone       # reset self.phone to new string
+  end
+  
+  def make_inactive
+    self.update_attribute(:active, false)
   end
 
 end

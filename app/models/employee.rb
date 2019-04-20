@@ -3,6 +3,8 @@ class Employee < ApplicationRecord
  # Callbacks
   before_save :reformat_phone
   before_validation :reformat_ssn
+  before_destroy :check_employee_shifts
+  after_rollback :allow_destroy_or_not
   
   # Relationships
   has_many :assignments
@@ -67,10 +69,41 @@ class Employee < ApplicationRecord
      phone.gsub!(/[^0-9]/,"") # strip all non-digits
      self.phone = phone       # reset self.phone to new string
    end
+   
    def reformat_ssn
      ssn = self.ssn.to_s      # change to string in case input as all numbers 
      ssn.gsub!(/[^0-9]/,"")   # strip all non-digits
      self.ssn = ssn           # reset self.ssn to new string
    end
+   
+   def check_employee_shifts
+    @destroy_attempt = self.shift.past.empty?
+   end
+   
+   def allow_destroy_or_not
+    if @destroy_attempt?
+       self.shift.upcoming.destroy_all
+    else
+       remove
+    end
+   end
+   
+   #steps:
+   # can only be deleted if the employee has never worked a shift
+   # If the employee can be deleted, their assignment (if it exists) should also be deleted.
+   # If the employee can't be deleted, the employee should be made inactive
+   # their current assignment terminated and all future shifts should be deleted
+   
+   def remove
+     #action 1: employee should be made inactive
+     self.update_attribute(:active, false)
+     #action 2: end current assignment if it exists
+     self.current_assignment.destroy if current_assignment.not_nil? 
+     #action 3: all future shifts should be deleted
+     self.shifts.destroy_all
+   end
+     
+
+
 end
 

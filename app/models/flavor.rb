@@ -11,6 +11,14 @@ class Flavor < ApplicationRecord
     scope :active,          -> { where(active: true) }
     scope :inactive,        -> { where(active: false) }
     scope :alphabetical,    -> { order('name') }
+    
+    #Callback
+    before_destroy :make_inactive
+    
+    private
+    def make_inactive
+        self.update_attribute(:active, false)
+    end
 
     
 end

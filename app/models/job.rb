@@ -1,7 +1,12 @@
 class Job < ApplicationRecord
     
-    before_destroy :allow_destroy
-    after_rollback :make_inactive
+    #Resources: 
+    #https://guides.rubyonrails.org/active_record_callbacks.html
+    #https://stackoverflow.com/questions/19044725/before-destroy-callback-not-stopping-record-from-being-deleted
+    #https://github.com/rails/rails/issues/7640
+    
+    before_destroy :worked_by_an_employee
+    after_rollback :set_as_inactive_if_ok
     
     #Relationships
     has_many :shift_jobs
@@ -15,13 +20,24 @@ class Job < ApplicationRecord
     scope :inactive,        -> { where(active: false) }
     scope :alphabetical,    -> { order('name') }
     
-    # should I make those private?
-    def allow_destroy
-        self.shift_jobs.empty?
+    
+    private
+    
+    def worked_by_an_employee
+        @destroy_attempt = self.shift_jobs.empty?
+        """if self.shift_jobs.empty?
+            @destroy_attempted = true
+        else
+            @destroy_attempted = false
+        end"""
     end
   
     def make_inactive
-        #if allow_destroy is true make inactive
+        self.update_attribute(:active, false)
+    end
+    
+    def set_as_inactive_if_ok
+        make_inactive if @destroy_attempt == fasle
     end
 
 end
