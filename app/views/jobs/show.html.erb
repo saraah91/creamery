@@ -6,18 +6,8 @@
 </p>
 
 <p>
-  <strong>String:</strong>
-  <%= @job.string %>
-</p>
-
-<p>
   <strong>Description:</strong>
   <%= @job.description %>
-</p>
-
-<p>
-  <strong>Text:</strong>
-  <%= @job.text %>
 </p>
 
 <p>
@@ -25,10 +15,6 @@
   <%= @job.active %>
 </p>
 
-<p>
-  <strong>Boolean:</strong>
-  <%= @job.boolean %>
-</p>
 
 <%= link_to 'Edit', edit_job_path(@job) %> |
 <%= link_to 'Back', jobs_path %>

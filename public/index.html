@@ -12,15 +12,23 @@
     </center>
     </h1>
     <br>
-    <h3 aligh="right">
-      <a href="/demos">Log In</a>
-    </h3>
+
+<font face="Comic Sans MS">
 <div id="mySidenav" class="sidenav">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
     <a href="/">Home</a>
     <a href = "/stores">Stores</a>
     <a href = "/employees">Employees</a>
     <a href = "/assignments">Assignments</a>
+    <a href = "/flavors">Flavors</a>
+    <a href = "/jobs">Jobs</a>
+    <a href = "/shifts">Shifts</a>
+    <% if logged_in? %>
+      <%= link_to "logout", logout_path %>
+    <% else %>
+      <%= link_to "login", login_path %>
+    <% end %>
+
 </div>
 
   <span style="font-size:30px; position:absolute; right:0px;cursor:pointer" onclick="openNav()">&#9776; open</span>

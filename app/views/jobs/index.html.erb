@@ -19,11 +19,8 @@
     <% @jobs.each do |job| %>
       <tr>
         <td><%= job.name %></td>
-        <td><%= job.string %></td>
         <td><%= job.description %></td>
-        <td><%= job.text %></td>
         <td><%= job.active %></td>
-        <td><%= job.boolean %></td>
         <td><%= link_to 'Show', job %></td>
         <td><%= link_to 'Edit', edit_job_path(job) %></td>
         <td><%= link_to 'Destroy', job, method: :delete, data: { confirm: 'Are you sure?' } %></td>

@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
 
+  #Login links
+  resources :demos, only: [:new, :create, :destroy]
+  get 'demos/new', to: 'demos#new', as: :login
+  get 'demos/destroy', to: 'demos#destroy', as: :logout
+
   resources :users
   resources :store_flavors
   resources :flavors
@@ -7,11 +12,6 @@ Rails.application.routes.draw do
   resources :jobs
   resources :shifts
   resources :demos
-  
-  #Login links
-  resources :demos, only: [:new, :create, :destroy]
-  get 'demos/new', to: 'demos#new', as: :login
-  get 'demos/destroy', to: 'demos#destroy', as: :logout
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   

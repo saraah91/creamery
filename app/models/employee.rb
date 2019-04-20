@@ -80,13 +80,13 @@ class Employee < ApplicationRecord
     @destroy_attempt = self.shift.past.empty?
    end
    
-   def allow_destroy_or_not
+   """def allow_destroy_or_not
     if @destroy_attempt?
        self.shift.upcoming.destroy_all
     else
        remove
     end
-   end
+   end"""
    
    #steps:
    # can only be deleted if the employee has never worked a shift

@@ -17,9 +17,7 @@
     <% @shift_jobs.each do |shift_job| %>
       <tr>
         <td><%= shift_job.shift_id %></td>
-        <td><%= shift_job.integer %></td>
         <td><%= shift_job.job_id %></td>
-        <td><%= shift_job.integer %></td>
         <td><%= link_to 'Show', shift_job %></td>
         <td><%= link_to 'Edit', edit_shift_job_path(shift_job) %></td>
         <td><%= link_to 'Destroy', shift_job, method: :delete, data: { confirm: 'Are you sure?' } %></td>

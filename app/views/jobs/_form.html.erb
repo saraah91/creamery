@@ -13,33 +13,19 @@
 
   <div class="field">
     <%= form.label :name %>
-    <%= form.text_field :name %>
-  </div>
-
-  <div class="field">
-    <%= form.label :string %>
-    <%= form.text_field :string %>
+    <%= form.text_field :name, :class => "form-control" %>
   </div>
 
   <div class="field">
     <%= form.label :description %>
-    <%= form.text_field :description %>
+    <%= form.text_field :description, :class => "form-control" %>
   </div>
 
   <div class="field">
-    <%= form.label :text %>
-    <%= form.text_field :text %>
+    Inactive
+    <%= form.radio_button :active, false, :value => true %>
   </div>
 
-  <div class="field">
-    <%= form.label :active %>
-    <%= form.text_field :active %>
-  </div>
-
-  <div class="field">
-    <%= form.label :boolean %>
-    <%= form.text_field :boolean %>
-  </div>
 
   <div class="actions">
     <%= form.submit %>

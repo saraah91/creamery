@@ -1,0 +1,17 @@
+
+
+
+
+
+<%= form_for(:demo, url: demos_path) do |f| %>
+<div class="form-group">
+    <%= f.label :email %>
+    <%= f.email_field :email, :class => "form-control" %>
+    <br>
+    <%= f.label :password %>
+    <%= f.password_field :password, :class => "form-control" %>
+    <br>
+    </div>
+    <center>
+    <%= f.submit "Login", :class => 'btn btn-outline-info' %>
+    </center><br><% end %>

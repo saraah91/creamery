@@ -11,27 +11,19 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :name %>
-    <%= form.text_field :name %>
+    <%= form.text_field :name, :class => "form-control" %>
   </div>
 
-  <div class="field">
-    <%= form.label :string %>
-    <%= form.text_field :string %>
+  <div class="form-group">
+    Inactive
+    <%= form.radio_button :active, false, :value => true %>
   </div>
-
-  <div class="field">
-    <%= form.label :active %>
-    <%= form.text_field :active %>
+  <div class="col-auto my-1">
+    <center>
+    <%= form.submit "Submit", :class => 'btn btn-outline-warning' %>
+  </center>
   </div>
-
-  <div class="field">
-    <%= form.label :boolean %>
-    <%= form.text_field :boolean %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+  
 <% end %>

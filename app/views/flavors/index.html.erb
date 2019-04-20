@@ -17,9 +17,7 @@
     <% @flavors.each do |flavor| %>
       <tr>
         <td><%= flavor.name %></td>
-        <td><%= flavor.string %></td>
         <td><%= flavor.active %></td>
-        <td><%= flavor.boolean %></td>
         <td><%= link_to 'Show', flavor %></td>
         <td><%= link_to 'Edit', edit_flavor_path(flavor) %></td>
         <td><%= link_to 'Destroy', flavor, method: :delete, data: { confirm: 'Are you sure?' } %></td>

@@ -16,49 +16,28 @@
     <%= form.text_field :assignment_id %>
   </div>
 
-  <div class="field">
-    <%= form.label :integer %>
-    <%= form.text_field :integer %>
-  </div>
 
   <div class="field">
     <%= form.label :date %>
-    <%= form.text_field :date %>
+    <%= form.text_field :date, :type => "date", :class => "form-control", :value => "10/24/1984" %>
   </div>
 
-  <div class="field">
-    <%= form.label :date %>
-    <%= form.text_field :date %>
-  </div>
 
   <div class="field">
     <%= form.label :start_time %>
-    <%= form.text_field :start_time %>
+    <%= form.text_field :start_time, :type => "time", :class => "form-control", :value => "08:00 AM" %>
   </div>
 
-  <div class="field">
-    <%= form.label :time, %>
-    <%= form.text_field :time, %>
-  </div>
 
   <div class="field">
     <%= form.label :end_time %>
-    <%= form.text_field :end_time %>
+    <%= form.text_field :end_time, :type => "time", :class => "form-control", :value => "12:00 PM"  %>
   </div>
 
-  <div class="field">
-    <%= form.label :time %>
-    <%= form.text_field :time %>
-  </div>
 
   <div class="field">
     <%= form.label :notes %>
     <%= form.text_field :notes %>
-  </div>
-
-  <div class="field">
-    <%= form.label :text %>
-    <%= form.text_field :text %>
   </div>
 
   <div class="actions">

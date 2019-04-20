@@ -14,10 +14,20 @@
 <font face="Comic Sans MS">
 <div id="mySidenav" class="sidenav">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-    <a href="/">Home</a><br>
+    <a href="/">Home</a><br>  <div class="field">
     <a href = "/stores">Stores</a><br>
     <a href = "/employees">Employees</a><br>
-    <a href = "/assignments">Assignments</a>
+    <a href = "/assignments">Assignments</a><br>
+    <a href = "/flavors">Flavors</a><br>
+    <a href = "/jobs">Jobs</a><br>
+    <a href = "/shifts">Shifts</a><br>
+    <% #only for admins %>
+    <a href = "/shift_jobs">Assign to Job</a><br>
+    <% if logged_in? %>
+      <%= link_to "logout", logout_path %>
+    <% else %>
+      <%= link_to "login", login_path %>
+    <% end %>
 </div>
 
 
@@ -36,6 +46,7 @@
   <body>
     <span style="font-size:30px; position:absolute; right:0px;cursor:pointer" onclick="openNav()">&#9776;</span>
     <%= yield %>
+    <%= debug(params) if Rails.env.development? %>
   </body>
   <footer>
 <div class="row">

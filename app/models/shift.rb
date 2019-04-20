@@ -11,8 +11,8 @@ class Shift < ApplicationRecord
 	has_one :employee, through: :assignment
 	
 	#Validations
-    validates_date :start_time, on_or_after: lambda { Time.current }, on_or_before_message: "cannot be in the past"
-    validates_date :end_time, after: :start_time, on_or_before: lambda { Time.current }, allow_blank: true
+    #validates_date :start_time, on_or_after: lambda { Time.current }, on_or_before_message: "cannot be in the past"
+    #validates_date :end_time, after: :start_time, on_or_before: lambda { Time.current }, allow_blank: true
     validates_presence_of :date, :start_time, :assignment_id
     validates_presence_of :assignment_id, on: :update
 
@@ -35,7 +35,7 @@ class Shift < ApplicationRecord
     end    
 	
 	def end_after_three_hours
-	    self.end_time = 3.hours.from_self.start_time 
+	    self.end_time = 3.hours.since(self.start_time )
 	end
 	
 	def start_now
