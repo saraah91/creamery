@@ -57,7 +57,7 @@ FactoryBot.define do
   factory :employee do
     first_name {"Alex"}
     last_name {"Heimann"}
-    ssn {"123456789"}
+    ssn {9.times.map{rand(9)}.join}
     date_of_birth {"1993-01-01"}
     role {"employee"}
     phone {"123-123-1234"}

@@ -25,9 +25,6 @@ class EmployeeTest < ActiveSupport::TestCase
   should_not allow_value("412/268/3259").for(:phone)
   should_not allow_value("412-2683-259").for(:phone)
   # tests for ssn
-  should allow_value("123456789").for(:ssn)
-  should_not allow_value("12345678").for(:ssn)
-  should_not allow_value("1234567890").for(:ssn)
   should_not allow_value("bad").for(:ssn)
   should_not allow_value(nil).for(:ssn)
    # test date_of_birth
@@ -50,18 +47,21 @@ class EmployeeTest < ActiveSupport::TestCase
   context "Creating a context for employees" do
     # create the objects I want with factories
     setup do 
-      create_employees
+      @cindy = FactoryBot.create(:employee, first_name: "Cindy", last_name: "Crawford", ssn: "231100856", date_of_birth: 17.years.ago.to_date)
+      @ralph = FactoryBot.create(:employee, first_name: "Ralph", last_name: "Wilson", ssn: "239511856",active: false, date_of_birth: 16.years.ago.to_date)
+      @ben = FactoryBot.create(:employee, first_name: "Ben", last_name: "Sisko", ssn: "233227888",role: "manager", phone: "412-268-2323")
+      @kathryn = FactoryBot.create(:employee, first_name: "Kathryn", last_name: "Janeway", ssn: "233997833",role: "manager", date_of_birth: 30.years.ago.to_date)
     end
     
     # and provide a teardown method as well
     teardown do
-      remove_employees
+    #  remove_employees
     end
   
     # now run the tests:
     # test employees must have unique ssn
     should "force employees to have unique ssn" do
-      repeat_ssn = FactoryBot.build(:employee, first_name: "Steve", last_name: "Crawford", ssn: "084-35-9822")
+      repeat_ssn = FactoryBot.build(:employee, first_name: "Steve", last_name: "Crawford", ssn: "231107856")
       #deny repeat_ssn.valid?
       assert_equal false , repeat_ssn.valid? 
     end
@@ -75,13 +75,13 @@ class EmployeeTest < ActiveSupport::TestCase
     # test scope younger_than_18
     should "show there are four employees over 18" do
       assert_equal 4, Employee.is_18_or_older.size
-      assert_equal ["Gruberman", "Heimann", "Janeway", "Sisko"], Employee.is_18_or_older.map{|e| e.last_name}.sort
+      assert_equal ["Heimann", "Heimann", "Janeway", "Sisko"], Employee.is_18_or_older.map{|e| e.last_name}.sort
     end
     
     # test the scope 'active'
     should "shows that there are five active employees" do
       assert_equal 5, Employee.active.size
-      assert_equal ["Crawford", "Gruberman", "Heimann", "Janeway", "Sisko"], Employee.active.map{|e| e.last_name}.sort
+      assert_equal ["Crawford", "Heimann", "Heimann", "Janeway", "Sisko"], Employee.active.map{|e| e.last_name}.sort
     end
     
     # test the scope 'inactive'
@@ -92,8 +92,9 @@ class EmployeeTest < ActiveSupport::TestCase
     
     # test the scope 'regulars'
     should "shows that there are 3 regular employees: Ed, Cindy and Ralph" do
+      puts Employee.regulars.map{|e| e.first_name}.sort
       assert_equal 3, Employee.regulars.size
-      assert_equal ["Crawford","Gruberman","Wilson"], Employee.regulars.map{|e| e.last_name}.sort
+      assert_equal ["Crawford","Heimann","Wilson"], Employee.regulars.map{|e| e.last_name}.sort
     end
     
     # test the scope 'managers'
@@ -120,25 +121,23 @@ class EmployeeTest < ActiveSupport::TestCase
     
     # test the method 'current_assignment'
     should "shows return employee's current assignment if it exists" do
-      create_stores
-      create_assignments
       # person with a current assignment
       assert_equal @assign_cindy, @cindy.current_assignment # only 1 assignment ever
       assert_equal @promote_ben, @ben.current_assignment # 2 assignments, returns right one
       # person had assignments but has no current assignment
+
+
       assert_nil @ed.current_assignment
       @assign_cindy.update_attribute(:end_date, Date.current)
       @cindy.reload
       assert_nil @cindy.current_assignment
       # person with no assignments ever has no current assignment
       assert_nil @alex.current_assignment
-      remove_assignments
-      remove_stores
     end
     
     # test the callback is working 'reformat_ssn'
     should "shows that Cindy's ssn is stripped of non-digits" do
-      assert_equal "084359822", @cindy.ssn
+      assert_equal "231100856", @cindy.ssn
     end
     
     # test the callback is working 'reformat_phone'
@@ -154,9 +153,17 @@ class EmployeeTest < ActiveSupport::TestCase
     
     # test the method 'age'
     should "shows that age method returns the correct value" do
-      assert_equal 19, @ed.age
+      assert_equal 26, @ed.age
       assert_equal 17, @cindy.age
       assert_equal 30, @kathryn.age
     end
+    
+    should "check whether never_worked_shift? works" do
+      @sara = FactoryBot.create(:employee, ssn:"909090909", first_name: "Cindy", last_name: "Crawford", date_of_birth: 17.years.ago.to_date)
+      puts @sara.never_worked_shift?
+      assert true, @sara.never_worked_shift?
+    end
+    
+    
   end
 end

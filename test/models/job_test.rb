@@ -40,11 +40,27 @@ class JobTest < ActiveSupport::TestCase
     end
     
     should "not allow deleting jobs that has been worked by an employee" do
+        #Assigning a shift to an employee to check if the callback works
+      @sara = FactoryBot.create(:employee, ssn:"909090909", first_name: "Cindy", last_name: "Crawford", date_of_birth: 17.years.ago.to_date)
+      @sarahome = FactoryBot.create(:store, name: "Home", phone: "412-268-8291")
+      @assign_sara = FactoryBot.create(:assignment, employee: @sara, store: @sarahome)
+      @saramorning = FactoryBot.create(:shift, assignment_id: @assign_sara.id, date: "2019-04-17", start_time: "05:39:00", end_time: "20:39:02", notes: "Morning Shift")
+      @sara_shift = FactoryBot.create(:shift, assignment: @assign_sara, date: 18.day.from_now.to_date)
+      @sara_shiftjob = FactoryBot.create(:shift_job, shift: @sara_shift, job: @sweeping)
+
       assert_equal 5, Job.active.size
       @sweeping.destroy
       assert_equal 4, Job.active.size
       assert_equal 3, Job.inactive.size
       assert_equal ["greet", "laundry", "sweeping"], Job.inactive.map{|e| e.name}.sort
+      
+      @sara.destroy
+      @sarahome.destroy
+      @assign_sara.destroy
+      @saramorning.destroy
+      @sara_shift.destroy
+      @sara_shiftjob.destroy
+
     end
   end
 end
