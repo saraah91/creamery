@@ -6,11 +6,7 @@
   <thead>
     <tr>
       <th>Employee</th>
-      <th>Integer</th>
       <th>Email</th>
-      <th>String</th>
-      <th>Password digest</th>
-      <th>String</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -19,11 +15,7 @@
     <% @users.each do |user| %>
       <tr>
         <td><%= user.employee_id %></td>
-        <td><%= user.integer %></td>
         <td><%= user.email %></td>
-        <td><%= user.string %></td>
-        <td><%= user.password_digest %></td>
-        <td><%= user.string %></td>
         <td><%= link_to 'Show', user %></td>
         <td><%= link_to 'Edit', edit_user_path(user) %></td>
         <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>

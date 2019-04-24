@@ -2,8 +2,8 @@ Rails.application.routes.draw do
 
   #Login links
   resources :demos, only: [:new, :create, :destroy]
-  get 'demos/new', to: 'demos#new', as: :login
-  get 'demos/destroy', to: 'demos#destroy', as: :logout
+  get 'login', to: 'demos#new', as: :login
+  get 'logout', to: 'demos#destroy', as: :logout
 
   resources :users
   resources :store_flavors
@@ -12,6 +12,13 @@ Rails.application.routes.draw do
   resources :jobs
   resources :shifts
   resources :demos
+  resources :stores
+  resources :employees
+  resources :assignments
+  
+  #homepage
+  root to: "static_pages#index"
+
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   
@@ -42,11 +49,5 @@ Rails.application.routes.draw do
   get "/assignments/for_employee" => "assignments#for_employee"
   get "/assignments/for_pay_level" => "assignments#for_pay_level"
   get "/assignments/for_role" => "assignments#for_role"
-  
-
-  
-  resources :stores
-  resources :employees
-  resources :assignments
   
 end

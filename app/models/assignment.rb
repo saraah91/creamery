@@ -1,8 +1,5 @@
 class Assignment < ApplicationRecord
     
-# Callbacks
-  before_create :end_previous_assignment
-  
   # Relationships
   belongs_to :employee
   belongs_to :store
@@ -27,33 +24,28 @@ class Assignment < ApplicationRecord
   scope :for_employee,  ->(employee_id) { where("employee_id = ?", employee_id) }
   scope :for_pay_level, ->(pay_level) { where("pay_level = ?", pay_level) }
   scope :for_role,      ->(role) { joins(:employee).where("role = ?", role) }
+  
+  # Callbacks
+  after_destroy :end_future_assignments
 
-  # Private methods for callbacks and custom validations
+
   private  
-  
-  def end_previous_assignment
-    current_assignment = Employee.find(self.employee_id).current_assignment
-    if current_assignment.nil? 
-      return true 
-    else
-      current_assignment.update_attribute(:end_date, self.start_date.to_date)
-    end
-  end
-  
-  # Again, these are not DRY
-  def employee_is_active_in_system
-    all_active_employees = Employee.active.all.map{|e| e.id}
-    unless all_active_employees.include?(self.employee_id)
-      errors.add(:employee_id, "is not an active employee at the creamery")
-    end
+  def end_future_assignments
+    self.shifts.destroy_all #because shifts belong to assignments right?
   end
   
   def store_is_active_in_system
-    all_active_stores = Store.active.all.map{|s| s.id}
-    unless all_active_stores.include?(self.store_id)
-      errors.add(:store_id, "is not an active store at the creamery")
+    active_stores = Store.active.all.map{|e| e.id}
+    unless active_stores.include?(self.store_id)
+      errors.add(:store_id, "is not an active store")
     end
   end
-
+  
+  def employee_is_active_in_system
+    active_employees = Employee.active.all.map{|e| e.id}
+    unless active_employees.include?(self.employee_id)
+      errors.add(:employee_id, "is not an active employee")
+    end
+  end
     
 end

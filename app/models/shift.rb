@@ -3,6 +3,9 @@ class Shift < ApplicationRecord
     # Callbacks
     before_create :end_after_three_hours
     
+    #do I have to check that start time is before end time
+    #check that new shift doesn't have a past date
+
     #Relationships
     has_many :shift_jobs
 	has_many :jobs, through: :shift_jobs
@@ -27,11 +30,7 @@ class Shift < ApplicationRecord
     scope :for_past_days, ->(x) { where("date between ? and ?", x.days.ago.to_date, 1.day.ago.to_date) } #pls see
     
     def completed?
-        if self.shift_jobs > 0
-            true
-        else
-            false
-        end
+        self.shift_jobs > 0
     end    
 	
 	def end_after_three_hours
@@ -51,10 +50,20 @@ class Shift < ApplicationRecord
     validate :current_assignment, on: :destroy
     
     def current_assignment
-        unless self.assignment.start_date >= Date.today?
+        unless self.assignment.start_date >= Date.today
             errors.add(:assignment_id, "assignment is not current at the creamery")
         end
     end
     
+    #Callbacks
+    before_destroy :check_time
+    private
+    def check_time
+        if self.date >= Date.today
+            self.destroy
+        else
+            errors.add(:shift_id, "cannot be deleted because it has already ended")
+        end
+    end
     
 end

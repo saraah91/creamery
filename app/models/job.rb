@@ -5,9 +5,6 @@ class Job < ApplicationRecord
     #https://stackoverflow.com/questions/19044725/before-destroy-callback-not-stopping-record-from-being-deleted
     #https://github.com/rails/rails/issues/7640
     
-    before_destroy :worked_by_an_employee
-    after_rollback :set_as_inactive_if_ok
-    
     #Relationships
     has_many :shift_jobs
 	has_many :shifts, through: :shift_jobs
@@ -20,24 +17,21 @@ class Job < ApplicationRecord
     scope :inactive,        -> { where(active: false) }
     scope :alphabetical,    -> { order('name') }
     
+    before_destroy :can_delete?
+    after_rollback :set_as_inactive_if_ok
     
     private
     
-    def worked_by_an_employee
-        @destroy_attempt = self.shift_jobs.empty?
-        """if self.shift_jobs.empty?
-            @destroy_attempted = true
-        else
-            @destroy_attempted = false
-        end"""
-    end
-  
-    def make_inactive
-        self.update_attribute(:active, false)
+    def worked_by_an_employee?
+        self.shift_jobs.empty?
     end
     
+    def can_delete?
+        throw :abort if not worked_by_an_employee?
+    end
+  
     def set_as_inactive_if_ok
-        make_inactive if @destroy_attempt == fasle
+        self.update_attribute(:active, false)
     end
 
 end

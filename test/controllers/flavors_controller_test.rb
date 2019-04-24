@@ -2,7 +2,7 @@ require 'test_helper'
 
 class FlavorsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @flavor = flavors(:one)
+    @flavor = FactoryBot.create(:flavor, name: "vanilla", active: true)
   end
 
   test "should get index" do

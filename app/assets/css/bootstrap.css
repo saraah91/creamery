@@ -53,10 +53,19 @@ h1 {
 h3 {
     margin-top: 25px;
     margin-right: 75px;
-    margin-left: 100px;
+    margin-left: 10px;
     color: #FD8A8A;
     text-shadow: -1px 0 yellow, 0 1px yellow, 1px 0 yellow, 0 -1px yellow;
 
+}
+ul {
+  background-color: white;
+  color: #FD8A8A;
+  font-family: "Comic Sans MS";
+}
+p {
+    margin-left: 10px;
+    font-family: "Comic Sans MS";
 }
 
 /* resource for the navbar: https://stackoverflow.com/questions/39263735/right-side-panel */

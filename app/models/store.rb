@@ -1,7 +1,8 @@
 class Store < ApplicationRecord
   # Callbacks
   before_save :reformat_phone
-  before_destroy :make_inactive
+  before_destroy :dont
+  after_rollback :make_inactive
   
   # Relationships
   has_many :assignments
@@ -29,7 +30,6 @@ class Store < ApplicationRecord
   # Misc Constants
   STATES_LIST = [['Ohio', 'OH'],['Pennsylvania', 'PA'],['West Virginia', 'WV']]
   
-  
   # Callback code
   # -----------------------------
   private
@@ -39,9 +39,11 @@ class Store < ApplicationRecord
     phone.gsub!(/[^0-9]/,"") # strip all non-digits
     self.phone = phone       # reset self.phone to new string
   end
-  
+  def dont
+      throw :abort
+  end
   def make_inactive
-    self.update_attribute(:active, false)
+      self.update_attribute(:active, false)
   end
 
 end

@@ -1,51 +1,12 @@
-<html>
 
-    <head>
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <script src="navbar.js"></script>
-
-    <title>Scoops n' Smiles</title>
-    <font face="Comic Sans MS">
-
-    <h1><center>
+<body>
+		 <h1><center>
       Scoops n' Smiles
     </center>
     </h1>
     <br>
-
-<font face="Comic Sans MS">
-<div id="mySidenav" class="sidenav">
-    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-    <a href="/">Home</a>
-    <a href = "/stores">Stores</a>
-    <a href = "/employees">Employees</a>
-    <a href = "/assignments">Assignments</a>
-    <a href = "/flavors">Flavors</a>
-    <a href = "/jobs">Jobs</a>
-    <a href = "/shifts">Shifts</a>
-    <% if logged_in? %>
-      <%= link_to "logout", logout_path %>
-    <% else %>
-      <%= link_to "login", login_path %>
-    <% end %>
-
-</div>
-
-  <span style="font-size:30px; position:absolute; right:0px;cursor:pointer" onclick="openNav()">&#9776; open</span>
-
-
-</head>
-<style>
-  ul {
-  margin: 25px 50px 75px 100px;
-  background-color: white;
-  color: #FD8A8A;
-}
-</style>
-    <body>
     <br>
-    <br>
-    <center><img src = "icecream_gif.gif" width="500" height="300"></center>
+    <center><%= image_tag "icecream_gif.gif", :height => "300"%></center>    <br>
     <h3>About Us</h3>
     <p>
         Scoops n' Smiles is one of the world's largest chain of ice cream specialty 
@@ -121,14 +82,3 @@
     
     <h3> Important Note </h3>
     <p> All info was taken from Baskin Robbins and changed to Scopes n' Smiles</p>
-      <footer>
-<div class="row">
-<div class="col s8 center">
-  <center>
-  <a href="/">Home</a>&nbsp;&nbsp;::&nbsp;&nbsp;
-  <a href="#">Contact Us</a>&nbsp;&nbsp;
-  <br />Webmaster: 
-  <a href="mailto:smohanad@andrew.cmu.edu">Sara Almohanadi</a>
-    &nbsp;&nbsp;Copyright 2019
-  </center></footer> 
-</html>

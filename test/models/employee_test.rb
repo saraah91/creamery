@@ -6,7 +6,7 @@ class EmployeeTest < ActiveSupport::TestCase
   should have_many(:stores).through(:assignments)
   
   # Test basic validations
-   should validate_presence_of(:first_name)
+  should validate_presence_of(:first_name)
   should validate_presence_of(:last_name)
   should validate_presence_of(:ssn)
   should validate_presence_of(:role)

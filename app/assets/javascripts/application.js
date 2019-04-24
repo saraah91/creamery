@@ -16,17 +16,6 @@
 //= require_tree .
 //= require datetime_picker_input 
 
-$(function() {
-  $('input[id="date"]').daterangepicker({
-    singleDatePicker: true,
-    showDropdowns: true,
-    minYear: 1901,
-    maxYear: parseInt(moment().format('YYYY'),10)
-  }, function(start, end, label) {
-    var years = moment().diff(start, 'years');
-  });
-});
-
 function openNav() {
     document.getElementById("mySidenav").style.width = "250px";
     document.getElementById("main").style.marginRight = "250px";
@@ -38,3 +27,14 @@ function closeNav() {
     document.getElementById("main").style.marginRight= "0";
     document.body.style.backgroundColor = "white";
 }
+
+$(function() {
+  $('input[id="date"]').daterangepicker({
+    singleDatePicker: true,
+    showDropdowns: true,
+    minYear: 1901,
+    maxYear: parseInt(moment().format('YYYY'),10)
+  }, function(start, end, label) {
+    var years = moment().diff(start, 'years');
+  });
+});

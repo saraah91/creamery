@@ -5,6 +5,7 @@
 <%= link_to 'New Assignment', new_assignment_path %>
 </div>
 <br>
+<% if current_user.role == "admin" %>
 <%= link_to 'All', assignments_path %>|
 <%= link_to 'Current', assignments_current_path %>|
 <%= link_to 'Past', assignments_past_path %>|
@@ -15,11 +16,14 @@
 <%= link_to 'For Employee', assignments_for_employee_path %>|
 <%= link_to 'For Pay Level', assignments_for_pay_level_path %>|
 <%= link_to 'For Role', assignments_for_role_path %>
-
+<% else %>
+You are not an Admin
+<% end %>
 <br>
 <br>
 <table class="table">
   <thead>
+    
     <tr>
       <th>Store</th>
       <th>Employee</th>
@@ -45,9 +49,7 @@
     <% end %>
   </tbody>
 </table>
-<font color= "gray"><p>Note: the "For .." methods shows data corresponding to id= 1. For example, "For Store" shows assignments for store with id= 1.
-"For Role"  shows assignments of "employees"
-</p></font>
+
 
 <br>
 

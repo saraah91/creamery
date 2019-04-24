@@ -4,7 +4,10 @@ class DemosController < ApplicationController
     
     def create
        user = User.find_by(email: params[:demo][:email].downcase) 
+       puts "******************************* #{params[:demo][:email]}"
        if user && user.authenticate(params[:demo][:password])
+           puts "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% #{user.email}"
+           puts "Authenticated"
            login(user)
            redirect_to user
        else

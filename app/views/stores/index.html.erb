@@ -1,9 +1,11 @@
+
+<body></body>
 <p id="notice"><%= notice %></p>
     <link rel="stylesheet" type="text/css" href="style.css">
 
 <h1>Stores</h1>
 
-<body id="white">
+
 <div align="right">
 <%= link_to 'New Store', new_store_path %>
 </div>
@@ -12,6 +14,7 @@
 <%= link_to 'Inactive', stores_inactive_path %>
 <br>
 <br>
+<div>
 <table class="table table-striped table-hover table-condensed">
   <thead>
     <tr>
@@ -31,22 +34,23 @@
   <tbody>
     <% @stores.alphabetical.each do |store| %>
       <tr>
-        <td><%= store.name %></td>
-        <td><%= store.street %></td>
-        <td><%= store.city %></td>
-        <td><%= store.state %></td>
-        <td><%= store.zip %></td>
-        <td><%= store.phone %></td>
-        <td><%= store.latitude %></td>
-        <td><%= store.longitude %></td>
-        <td><%= store.active %></td>
-        <td><%= link_to 'Show', store %></td>
-        <td><%= link_to 'Edit', edit_store_path(store) %></td>
-        <td><%= link_to 'Destroy', store, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td  ><%= store.name %></td>
+        <td  ><%= store.street %></td>
+        <td  ><%= store.city %></td>
+        <td  ><%= store.state %></td>
+        <td  ><%= store.zip %></td>
+        <td  ><%= store.phone %></td>
+        <td  ><%= store.latitude %></td>
+        <td  ><%= store.longitude %></td>
+        <td  ><%= store.active %></td>
+        <td  ><%= link_to 'Show', store %></td>
+        <td  ><%= link_to 'Edit', edit_store_path(store) %></td>
+        <td  ><%= link_to 'Destroy', store, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-</body>
+</div>
 
 <br>
+</body>

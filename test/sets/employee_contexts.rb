@@ -3,11 +3,11 @@ module Contexts
     # Context for employees 
     def create_employees
       @ed = FactoryBot.create(:employee)
-      @cindy = FactoryBot.create(:employee, first_name: "Cindy", last_name: "Crawford", ssn: "084-35-9822", date_of_birth: 17.years.ago.to_date)
-      @ralph = FactoryBot.create(:employee, first_name: "Ralph", last_name: "Wilson", active: false, date_of_birth: 16.years.ago.to_date)
-      @ben = FactoryBot.create(:employee, first_name: "Ben", last_name: "Sisko", role: "manager", phone: "412-268-2323")
-      @kathryn = FactoryBot.create(:employee, first_name: "Kathryn", last_name: "Janeway", role: "manager", date_of_birth: 30.years.ago.to_date)
-      @alex = FactoryBot.create(:employee, first_name: "Alex", last_name: "Heimann", role: "admin")
+      @cindy = FactoryBot.create(:employee, first_name: "Cindy", last_name: "Crawford", ssn: "231167856", date_of_birth: 17.years.ago.to_date)
+      @ralph = FactoryBot.create(:employee, first_name: "Ralph", last_name: "Wilson", ssn: "239567856",active: false, date_of_birth: 16.years.ago.to_date)
+      @ben = FactoryBot.create(:employee, first_name: "Ben", last_name: "Sisko", ssn: "233567888",role: "manager", phone: "412-268-2323")
+      @kathryn = FactoryBot.create(:employee, first_name: "Kathryn", last_name: "Janeway", ssn: "233997856",role: "manager", date_of_birth: 30.years.ago.to_date)
+      @alex = FactoryBot.create(:employee, first_name: "Alex", last_name: "Heimann", ssn: "223997856", role: "admin")
     end
     
     def remove_employees
@@ -20,9 +20,9 @@ module Contexts
     end
 
     def create_additional_employees
-      @liu = FactoryBot.create(:employee, first_name: "Angela", last_name: "Liu", date_of_birth: 245.months.ago.to_date, role: "manager")
-      @wilson = FactoryBot.create(:employee, first_name: "Allie", last_name: "Wilson", date_of_birth: 234.months.ago.to_date, role: "manager")
-      @correa = FactoryBot.create(:employee, first_name: "Jake", last_name: "Correa", date_of_birth: 240.months.ago.to_date, role: "manager")
+      @liu = FactoryBot.create(:employee, first_name: "Angela", last_name: "Liu", ssn: "233567856", date_of_birth: 245.months.ago.to_date, role: "manager")
+      @wilson = FactoryBot.create(:employee, first_name: "Allie", last_name: "Wilson", ssn: "234597856", date_of_birth: 234.months.ago.to_date, role: "manager")
+      @correa = FactoryBot.create(:employee, first_name: "Jake", last_name: "Correa", ssn: "234567856",date_of_birth: 240.months.ago.to_date, role: "manager")
       @hersh = FactoryBot.create(:employee, first_name: "Jon", last_name: "Hersh", ssn: "234567890", phone: "4122683259", date_of_birth: 27.years.ago.to_date)
       @rubinstein = FactoryBot.create(:employee, first_name: "Ari", last_name: "Rubinstein", ssn: "234567891", phone: "4122683258", date_of_birth: 25.years.ago.to_date)
       @brunk = FactoryBot.create(:employee, first_name: "Stafford", last_name: "Brunk", ssn: "234567892", phone: "4122683257", date_of_birth: 23.years.ago.to_date)

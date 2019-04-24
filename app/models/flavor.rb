@@ -1,5 +1,10 @@
 class Flavor < ApplicationRecord
     
+    #Callbacks
+    before_destroy :dont
+    after_rollback :make_inactive
+
+    
     #Relationships
     has_many :store_flavors
     has_many :stores, through: :store_flavors
@@ -12,10 +17,10 @@ class Flavor < ApplicationRecord
     scope :inactive,        -> { where(active: false) }
     scope :alphabetical,    -> { order('name') }
     
-    #Callback
-    before_destroy :make_inactive
-    
     private
+    def dont
+        throw :abort
+    end
     def make_inactive
         self.update_attribute(:active, false)
     end

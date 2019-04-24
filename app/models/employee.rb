@@ -1,16 +1,17 @@
 class Employee < ApplicationRecord
-  has_secure_password
+  
  # Callbacks
   before_save :reformat_phone
   before_validation :reformat_ssn
-  before_destroy :check_employee_shifts
-  after_rollback :allow_destroy_or_not
-  
+
+ 
   # Relationships
   has_many :assignments
   has_many :stores, through: :assignments
   has_one :user
   has_many :shifts, through: :assignments
+  
+  accepts_nested_attributes_for :user
   
   # Validations
   validates_presence_of :first_name, :last_name, :date_of_birth, :ssn, :role
@@ -41,6 +42,8 @@ class Employee < ApplicationRecord
     "#{first_name} #{last_name}"
   end
   
+
+  
   def current_assignment
     curr_assignment = self.assignments.select{|a| a.end_date.nil?}
     # alternative method for finding current assignment is to use scope 'current' in assignments:
@@ -63,7 +66,7 @@ class Employee < ApplicationRecord
   
   # Callback code  (NOT DRY!!!)
   # -----------------------------
-   #private
+ private
    def reformat_phone
      phone = self.phone.to_s  # change to string in case input as all numbers 
      phone.gsub!(/[^0-9]/,"") # strip all non-digits
@@ -76,34 +79,38 @@ class Employee < ApplicationRecord
      self.ssn = ssn           # reset self.ssn to new string
    end
    
-   def check_employee_shifts
-    @destroy_attempt = self.shift.past.empty?
-   end
-   
-   """def allow_destroy_or_not
-    if @destroy_attempt?
-       self.shift.upcoming.destroy_all
-    else
-       remove
-    end
-   end"""
-   
-   #steps:
    # can only be deleted if the employee has never worked a shift
    # If the employee can be deleted, their assignment (if it exists) should also be deleted.
    # If the employee can't be deleted, the employee should be made inactive
    # their current assignment terminated and all future shifts should be deleted
+
+    before_destroy :never_worked_shift?
+    after_rollback :delete_employee
+   private
+   def never_worked_shift?
+     self.shifts.past.empty?
+   end
    
-   def remove
+   def delete_employee
+      if never_worked_shift? 
+          remove_employee
+      else
+          destroy.assignment if self.assignment.empty? 
+          self.destroy
+      end
+   end
+  
+   def remove_employee
      #action 1: employee should be made inactive
      self.update_attribute(:active, false)
      #action 2: end current assignment if it exists
-     self.current_assignment.destroy if current_assignment.not_nil? 
+     #MAYBE THIS IS "IF" & NOT_NIL
+     self.current_assignment.destroy unless current_assignment.nil? 
      #action 3: all future shifts should be deleted
-     self.shifts.destroy_all
+     self.shifts.upcoming.destroy_all
    end
      
 
-
 end
+
 

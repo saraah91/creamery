@@ -8,7 +8,8 @@ module Contexts
       @assign_cindy = FactoryBot.create(:assignment, employee: @cindy, store: @cmu, start_date: 14.months.ago.to_date, end_date: nil)
       @assign_kathryn = FactoryBot.create(:assignment, employee: @kathryn, store: @oakland, start_date: 10.months.ago.to_date, end_date: nil, pay_level: 3)
     end
-    
+    #Ben, Cindy, Kathryn, Ben
+    #["Ben", "Kathryn", "Cindy", "Ben", "Alex"]
     def remove_assignments
       @assign_ed.destroy
       @assign_cindy.destroy
