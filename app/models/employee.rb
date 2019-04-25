@@ -84,8 +84,9 @@ class Employee < ApplicationRecord
    # If the employee can't be deleted, the employee should be made inactive
    # their current assignment terminated and all future shifts should be deleted
 
-    before_destroy :never_worked_shift?
-    after_rollback :delete_employee
+   before_destroy :never_worked_shift?
+   after_rollback :delete_employee
+   
    private
    def never_worked_shift?
      self.shifts.past.empty?

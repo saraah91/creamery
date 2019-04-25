@@ -50,18 +50,19 @@ class EmployeeTest < ActiveSupport::TestCase
   context "Creating a context for employees" do
     # create the objects I want with factories
     setup do 
+    #  create_contexts
       create_employees
     end
     
     # and provide a teardown method as well
     teardown do
-      remove_employees
+    #  remove_employees
     end
   
     # now run the tests:
     # test employees must have unique ssn
     should "force employees to have unique ssn" do
-      repeat_ssn = FactoryBot.build(:employee, first_name: "Steve", last_name: "Crawford", ssn: "084-35-9822")
+      repeat_ssn = FactoryBot.build(:employee, first_name: "Steve", last_name: "Crawford", ssn: "231167856")
       #deny repeat_ssn.valid?
       assert_equal false , repeat_ssn.valid? 
     end
@@ -75,13 +76,13 @@ class EmployeeTest < ActiveSupport::TestCase
     # test scope younger_than_18
     should "show there are four employees over 18" do
       assert_equal 4, Employee.is_18_or_older.size
-      assert_equal ["Gruberman", "Heimann", "Janeway", "Sisko"], Employee.is_18_or_older.map{|e| e.last_name}.sort
+      assert_equal ["Heimann", "Heimann", "Janeway", "Sisko"], Employee.is_18_or_older.map{|e| e.last_name}.sort
     end
     
     # test the scope 'active'
     should "shows that there are five active employees" do
       assert_equal 5, Employee.active.size
-      assert_equal ["Crawford", "Gruberman", "Heimann", "Janeway", "Sisko"], Employee.active.map{|e| e.last_name}.sort
+      assert_equal ["Crawford", "Heimann", "Heimann", "Janeway", "Sisko"], Employee.active.map{|e| e.last_name}.sort
     end
     
     # test the scope 'inactive'
@@ -93,7 +94,7 @@ class EmployeeTest < ActiveSupport::TestCase
     # test the scope 'regulars'
     should "shows that there are 3 regular employees: Ed, Cindy and Ralph" do
       assert_equal 3, Employee.regulars.size
-      assert_equal ["Crawford","Gruberman","Wilson"], Employee.regulars.map{|e| e.last_name}.sort
+      assert_equal ["Crawford","Heimann","Wilson"], Employee.regulars.map{|e| e.last_name}.sort
     end
     
     # test the scope 'managers'
@@ -119,9 +120,14 @@ class EmployeeTest < ActiveSupport::TestCase
     end 
     
     # test the method 'current_assignment'
-    should "shows return employee's current assignment if it exists" do
-      create_stores
-      create_assignments
+    should "return employee's current assignment if it exists" do
+      @cmu = FactoryBot.create(:store)
+      @assign_ed = FactoryBot.create(:assignment, employee: @ed, store: @cmu, start_date: 1.year.ago.to_date, end_date: 1.month.ago.to_date) 
+      @cindy = FactoryBot.create(:employee, first_name: "Cindy", last_name: "Crawford", ssn: "231167896", date_of_birth: 17.years.ago.to_date)
+      @assign_cindy = FactoryBot.create(:assignment, employee: @cindy, store: @cmu, start_date: 14.months.ago.to_date, end_date: nil)
+      @alex = FactoryBot.create(:employee, first_name: "Alex", last_name: "Heimann", ssn: "203997856", role: "admin")
+
+
       # person with a current assignment
       assert_equal @assign_cindy, @cindy.current_assignment # only 1 assignment ever
       assert_equal @promote_ben, @ben.current_assignment # 2 assignments, returns right one
@@ -132,13 +138,17 @@ class EmployeeTest < ActiveSupport::TestCase
       assert_nil @cindy.current_assignment
       # person with no assignments ever has no current assignment
       assert_nil @alex.current_assignment
-      remove_assignments
-      remove_stores
+      
+      @cmu.destroy
+      @assign_ed.destroy
+      @cindy.destroy
+      @assign_cindy.destroy
+      @alex.destroy
     end
     
     # test the callback is working 'reformat_ssn'
     should "shows that Cindy's ssn is stripped of non-digits" do
-      assert_equal "084359822", @cindy.ssn
+      assert_equal "231167856", @cindy.ssn
     end
     
     # test the callback is working 'reformat_phone'
@@ -154,9 +164,24 @@ class EmployeeTest < ActiveSupport::TestCase
     
     # test the method 'age'
     should "shows that age method returns the correct value" do
-      assert_equal 19, @ed.age
+      assert_equal 26, @ed.age
       assert_equal 17, @cindy.age
       assert_equal 30, @kathryn.age
     end
+    
+    
+    should "delete employees that has never worked a shift" do
+      @saramoh = FactoryBot.create(:employee, first_name: "Sara", last_name: "Almoh", ssn: "278997856", role: "admin")
+      assert_equal 2, Employee.admins.size
+      assert_equal ["Almoh","Heimann"], Employee.admins.map{|e| e.last_name}.sort
+      @saramoh.destroy
+      assert_equal 1, Employee.admins.size
+      assert_equal ["Heimann"], Employee.admins.map{|e| e.last_name}.sort
+
+      
+    end
+    
+    
+    
   end
 end

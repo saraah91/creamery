@@ -97,6 +97,7 @@ class AssignmentTest < ActiveSupport::TestCase
       assert_not_equal true,@second_assignment_for_ed.valid?
       @third_assignment_for_ed = FactoryBot.build(:assignment, employee: @ed, store: @oakland, start_date: 2.weeks.ago.to_date, end_date: 3.weeks.from_now.to_date)
       assert_equal false, @third_assignment_for_ed.valid?
+      
     end
 
     should "identify a non-active store as part of an invalid assignment" do
@@ -108,6 +109,7 @@ class AssignmentTest < ActiveSupport::TestCase
       @fred = FactoryBot.build(:employee, first_name: "Fred", active: false)
       inactive_employee = FactoryBot.build(:assignment, store: @oakland, employee: @fred, start_date: 1.day.ago.to_date, end_date: nil)
       assert_equal false,inactive_employee.valid?
+      @fred.destroy
     end
 
     # should "end the current assignment if it exists before adding a new assignment for an employee" do

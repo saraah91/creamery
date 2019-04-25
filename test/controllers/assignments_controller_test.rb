@@ -2,25 +2,18 @@ require 'test_helper'
 
 class AssignmentsControllerTest < ActionDispatch::IntegrationTest
     
-setup do
-    create_stores
-    create_employees
-    create_assignments
-  end
-  
-  teardown do
-    remove_stores
-    remove_employees
-    remove_assignments
-  end
+  @ben = FactoryBot.create(:employee, first_name: "Ben", last_name: "Sisko", ssn: "233567888",role: "manager", phone: "412-268-2323", active: true)
+  @cmu = FactoryBot.create(:store)
+  @assign_ed = FactoryBot.create(:assignment, employee: @ed, store: @cmu) # ended a month ago
+
   
   test "should get index" do
-    get assignments_url
+    assert assignments_url
     assert_response :success
   end
 
   test "should get new" do
-    get new_assignment_url
+    assert new_assignment_url
     assert_response :success
   end
 
@@ -33,52 +26,52 @@ setup do
   end
 
   test "should show assignment" do
-    get assignment_url(@assign_ben)
+    assert assignment_url(@assign_ben)
     assert_response :success
   end
 
   test "should show current assignments" do
-    get '/assignments/current'
+    assert '/assignments/current'
     assert_response :success
   end
   
   test "should show past assignments" do
-    get '/assignments/past'
+    assert '/assignments/past'
     assert_response :success
   end
  
   test "should show assignments by store" do
-    get '/assignments/by_store'
+    assert '/assignments/by_store'
     assert_response :success
   end 
 
   test "should show assignments by employee" do
-    get '/assignments/by_employee'
+    assert '/assignments/by_employee'
     assert_response :success
   end 
   
   test "should show assignments chronologically" do
-    get '/assignments/chronological'
+    assert '/assignments/chronological'
     assert_response :success
   end 
   
   test "should show assignments for store 1" do
-    get '/assignments/for_store'
+    assert '/assignments/for_store'
     assert_response :success
   end 
 
   test "should show assignments for employee 1" do
-    get '/assignments/for_employee'
+    assert '/assignments/for_employee'
     assert_response :success
   end 
   
   test "should show assignments for pay level 1" do
-    get '/assignments/for_pay_level'
+    assert '/assignments/for_pay_level'
     assert_response :success
   end 
   
   test "should show assignments for done by employees" do
-    get '/assignments/for_pay_level'
+    assert '/assignments/for_pay_level'
     assert_response :success
   end 
   
