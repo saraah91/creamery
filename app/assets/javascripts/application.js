@@ -14,7 +14,7 @@
 //= require activestorage
 //= require turbolinks
 //= require_tree .
-//= require datetime_picker_input 
+ 
 
 function openNav() {
     document.getElementById("mySidenav").style.width = "250px";
