@@ -9,7 +9,7 @@ require './test/sets/shift_contexts'
 require './test/sets/shift_job_contexts'
 require './test/sets/store_contexts'
 require './test/sets/store_flavor_contexts'
-@ed = FactoryBot.create(:employee)
+
 module Contexts
   # explicitly include all sets of contexts used for testing 
   include Contexts::StoreContexts

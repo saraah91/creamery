@@ -21,6 +21,7 @@ class Job < ApplicationRecord
     after_rollback :set_as_inactive_if_ok
     
     private
+    
     def worked_by_an_employee?
         self.shift_jobs.empty?
     end
