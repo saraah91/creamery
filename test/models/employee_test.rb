@@ -73,13 +73,11 @@ class EmployeeTest < ActiveSupport::TestCase
     # test scope younger_than_18
     should "show there are four employees over 18" do
       assert_equal 4, Employee.is_18_or_older.size
-      puts Employee.is_18_or_older.map{|e| e.first_name}.sort
       assert_equal ["Heimann", "Heimann", "Janeway", "Sisko"], Employee.is_18_or_older.map{|e| e.last_name}.sort
     end
     
     # test the scope 'active'
     should "shows that there are five active employees" do
-      puts Employee.active.map{|e| e.last_name}.sort
       assert_equal 5, Employee.active.size
       assert_equal ["Crawford", "Heimann", "Heimann", "Janeway", "Sisko"], Employee.active.map{|e| e.last_name}.sort
     end
@@ -92,9 +90,6 @@ class EmployeeTest < ActiveSupport::TestCase
     
     # test the scope 'regulars'
     should "shows that there are 3 regular employees: Ed, Cindy and Ralph" do
-      remove_employees
-      puts Employee.regulars.map{|e| e.first_name}.sort
-
       assert_equal 3, Employee.regulars.size
       assert_equal ["Crawford","Heimann","Wilson"], Employee.regulars.map{|e| e.last_name}.sort
     end
@@ -181,9 +176,24 @@ class EmployeeTest < ActiveSupport::TestCase
       @saramoh.destroy
       assert_equal 1, Employee.admins.size
       assert_equal ["Heimann"], Employee.admins.map{|e| e.last_name}.sort
-
-      
     end
+ 
+    should "not delete employees that worked a shift" do
+      @saramoh = FactoryBot.create(:employee, first_name: "Sara", last_name: "Almoh", ssn: "278997856", role: "admin")
+      @cmu = FactoryBot.create(:store, active: true)
+      @saramoh_assignment = FactoryBot.create(:assignment, employee: @saramoh, store: @cmu, start_date: 2.days.ago, end_date: 1.days.ago) # ended a month ago
+      @assign_saramoh = FactoryBot.create(:shift, assignment: @saramoh_assignment)
+      @saramohmorning = FactoryBot.create(:shift, assignment_id: @saramoh_assignment.id, date: "2019-04-17", start_time: "05:39:00", end_time: "20:39:02", notes: "Saramoh Morning Shift")
+      assert_equal 2, Employee.admins.size
+      assert_equal ["Almoh","Heimann"], Employee.admins.map{|e| e.last_name}.sort
+      @saramoh.destroy
+
+      assert_equal 2, Employee.admins.size
+      assert_equal ["Almoh","Heimann"], Employee.admins.map{|e| e.last_name}.sort
+      assert_equal ["Almoh","Wilson"], Employee.inactive.map{|e| e.last_name}.sort
+
+    end
+ 
     
   end
 end

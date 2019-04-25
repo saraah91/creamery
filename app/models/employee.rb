@@ -11,7 +11,7 @@ class Employee < ApplicationRecord
   has_one :user
   has_many :shifts, through: :assignments
   
-  accepts_nested_attributes_for :user
+  accepts_nested_attributes_for :user, reject_if: lambda { |user| user[:email].blank? }, allow_destroy: true
   
   # Validations
   validates_presence_of :first_name, :last_name, :date_of_birth, :ssn, :role
@@ -19,7 +19,7 @@ class Employee < ApplicationRecord
   validates_format_of :phone, with: /\A\(?\d{3}\)?[-. ]?\d{3}[-.]?\d{4}\z/, message: "should be 10 digits (area code needed) and delimited with dashes only", allow_blank: true
   validates_format_of :ssn, with: /\A\d{3}[- ]?\d{2}[- ]?\d{4}\z/, message: "should be 9 digits and delimited with dashes only"
   validates_inclusion_of :role, in: %w[admin manager employee], message: "is not an option"
- # validates_uniqueness_of :ssn
+  validates_uniqueness_of :ssn
   
   # Scopes
   scope :younger_than_18, -> { where('date_of_birth > ?', 18.years.ago.to_date) }
@@ -88,13 +88,9 @@ class Employee < ApplicationRecord
    after_rollback :remove_employee
 
    private
-   def never_worked_shift?
-     self.shifts.past.empty?
-   end
-   
+
     def can_delete?
-        if not never_worked_shift?
-        #    destroy.self.current_assignment if not self.current_assignment.nil? 
+        if self.shifts.past.empty?
             self.destroy
         else
             throw :abort

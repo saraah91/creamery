@@ -17,6 +17,7 @@ module Contexts
       @ben.destroy
       @kathryn.destroy
       @alex.destroy
+      
     end
 
     def create_additional_employees
