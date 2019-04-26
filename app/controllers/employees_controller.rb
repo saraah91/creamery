@@ -1,10 +1,19 @@
 class EmployeesController < ApplicationController
   before_action :set_employee, only: [:show, :edit, :update, :destroy]
-  before_action :editing_rights, only: [:edit]
   before_action :admins_abilities, only: [:update, :destroy, :create, :new]
   before_action :logged_in_user
   before_action :index_rights, only: [:index]
   before_action :showing_rights, only: [:show]
+  before_action :editing_rights, only: [:edit]
+
+  def editing_rights
+      unless current_user == User.find_by(id: session[:user_id]) || current_users_role == "admin"
+        respond_to do |format|
+        format.html { redirect_to root_url, notice: 'You are not authorized to view this information/perform this action' }
+        format.json { head :no_content }
+        end
+      end
+  end
 
   
   def showing_rights
@@ -38,16 +47,6 @@ class EmployeesController < ApplicationController
         end
       end
   end
-  
-  def editing_rights
-    puts "hfkejlkhekljhdgjefk;djhgfkel;dkfjdgh,fkldkfjdhgjewokfjhgdeioifdhu"
-      unless current_users_role == "admin" || @user == current_user
-        respond_to do |format|
-        format.html { redirect_to root_url, notice: 'You are not authorized to view this information/perform this action' }
-        format.json { head :no_content }
-        end
-      end
-  end
 
   
   def index
@@ -57,16 +56,6 @@ class EmployeesController < ApplicationController
       @employees = Employee.regulars.for_store(current_user.employee.current_assignment.store_id)
        #Assignment.for_store(current_user.employee.current_assignment.store_id)
     end
-#     @employees = Employee.managers
-#     @employees = Employee.admins
-#     @employees = Employee.regulars
-#   # @employees = Employee.regulars.for_store(@current_user.employee.current_assignment.store_id)
-#     @employees = Employee.inactive
-#   # @employees = Employee.inactive.for_store(@current_user.employee.current_assignment.store_id)
-#     @employees = Employee.active 
-#     @employees = Employee.is_18_or_older
-#     @employees = Employee.younger_than_18
-# #   @employees = Employee.proper_name
   end
   
   def show

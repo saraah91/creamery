@@ -16,9 +16,9 @@
     <%= form.text_field :name, :class => "form-control" %>
   </div>
 
-  <div class="form-group">
-    Inactive
-    <%= form.radio_button :active, false, :value => true %>
+  <div class="form-group col-md-6">
+    Active
+    <%= form.select :active, options_for_select([["true"],["false"]]), :class => "dropdown-menu" %>
   </div>
   <div class="col-auto my-1">
     <center>

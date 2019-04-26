@@ -22,8 +22,7 @@
       <font face="Comic Sans MS">
 <div id="mySidenav" class="sidenav">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-     
-    
+
     <a href="/">Home</a>
     <%= link_to "Stores", stores_path %>
     
@@ -40,8 +39,7 @@
     <% end %>
     
     <% if logged_in? && current_users_role == "admin" %>
-    <%= link_to "Assign to Job", shift_jobs_path %>
-    <%= link_to "Users", users_path %>
+    <%= link_to "Assign Shift to Job", shift_jobs_path %>
     <% end %>
 
     <% if logged_in? %>

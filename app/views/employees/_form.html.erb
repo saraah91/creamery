@@ -21,7 +21,7 @@
 
   <div class="field">
     <%= f.label "password" %>
-    <%= f.text_field :password, :class => "form-control" %>
+    <%= f.text_field :password, :class => "form-control", :type => "password"%>
   </div>
   <% end %>
 
@@ -40,8 +40,8 @@
 
   <% if current_users_role == "employee" %>
       <div class="form-group">
-    <% form.label :ssn %>:
-    <%= :ssn %>
+    Ssn: 
+    <%= @employee.ssn %>
   </div>
 <% else %>
     

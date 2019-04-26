@@ -26,7 +26,7 @@
     <%= form.select :active, options_for_select([["true"],["false"]]), :class => "dropdown-menu" %>
   </div>
 
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+  <div class="actions"><div align="center">
+    <%= form.submit "Submit", :class => 'btn btn-outline-warning' %>
+  </div></div>
 <% end %>

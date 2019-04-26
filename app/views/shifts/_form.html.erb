@@ -13,7 +13,7 @@
 
   <div class="field">
     <%= form.label :assignment_id %>
-    <%= form.text_field :assignment_id %>
+    <%= form.text_field :assignment_id, :class => "form-control"  %>
   </div>
 
 
@@ -37,10 +37,11 @@
 
   <div class="field">
     <%= form.label :notes %>
-    <%= form.text_field :notes %>
+    <%= form.text_field :notes , :class => "form-control" %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
-  </div>
+    <div align="center">
+    <%= form.submit "Submit", :class => 'btn btn-outline-warning' %>
+  </div></div>
 <% end %>

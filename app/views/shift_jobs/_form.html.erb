@@ -13,15 +13,15 @@
 
   <div class="field">
     <%= form.label :shift_id %>
-    <%= form.text_field :shift_id %>
+    <%= form.text_field :shift_id, :class => "form-control" %>
   </div>
 
   <div class="field">
     <%= form.label :job_id %>
-    <%= form.text_field :job_id %>
+    <%= form.text_field :job_id, :class => "form-control" %>
   </div>
 
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+  <div class="actions"><div align="center">
+    <%= form.submit "Submit", :class => 'btn btn-outline-warning' %>
+  </div></div>
 <% end %>
