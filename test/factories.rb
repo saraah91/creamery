@@ -31,7 +31,7 @@ FactoryBot.define do
     assignment_id { 1 }
     date { "2019-04-17" }
     start_time { "15:39:02" }
-    end_time { "20:39:02" }
+    end_time { }
     notes { "MyText" }
   end
 

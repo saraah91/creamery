@@ -2,11 +2,11 @@
     <link rel="stylesheet" type="text/css" href="style.css">
 
 <h1>Stores</h1>
-
-<body id="white">
+ <% if logged_in? && current_users_role == "admin" %>
 <div align="right">
 <%= link_to 'New Store', new_store_path %>
 </div>
+<% end %>
 <%= link_to 'All', stores_path %>|
 <%= link_to 'Active', stores_active_path %>|
 <%= link_to 'Inactive', stores_inactive_path %>

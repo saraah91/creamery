@@ -8,7 +8,15 @@
 </div>
 <% end %>
 
-<%= link_to 'All', employees_path %>|
+
+<% if @employees == nil && current_users_role == "manager"%>
+<p>No employee found</p>
+<%
+  elsif current_users_role == "employee" %>
+<meta http-equiv="refresh" content="0;url=/">
+  <%  else %>
+  
+  <%= link_to 'All', employees_path %>|
 <%= link_to 'Managers', employees_managers_path %>|
 <%= link_to 'Admins', employees_admins_path %>|
 <%= link_to 'Employees', employees_regulars_path %>|
@@ -16,16 +24,11 @@
 <%= link_to 'Active', employees_active_path %>|
 <%= link_to '18 years or older', employees_is_18_or_older_path %>|
 <%= link_to 'Younger than 18', employees_younger_than_18_path %>
+|<%= link_to 'Extra Info', employees_proper_names_path %>
 
 <br>
 <br>
-<% if @employees == nil && current_users_role == "manager"%>
-<p>No employee found</p>
-<%
-  elsif current_users_role == "employee" %>
-<meta http-equiv="refresh" content="0;url=/">
-  <%  else
-  %>
+
 <table class="table table-striped table-hover table-condensed">
   <thead>
     <tr>

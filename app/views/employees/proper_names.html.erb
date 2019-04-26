@@ -2,17 +2,30 @@
 
 <h1>Employees</h1>
 
-<div align=right>
-<%= link_to 'New Employee', new_employee_path %> 
+ <% if logged_in? && current_users_role == "admin" %>
+<div align="right">
+<%= link_to 'New Employee', new_employee_path %>
 </div>
-<%= link_to 'All', employees_path %>|
+<% end %>
+
+
+<% if @employees == nil && current_users_role == "manager"%>
+<p>No employee found</p>
+<%
+  elsif current_users_role == "employee" %>
+<meta http-equiv="refresh" content="0;url=/">
+  <%  else %>
+  
+  <%= link_to 'All', employees_path %>|
 <%= link_to 'Managers', employees_managers_path %>|
 <%= link_to 'Admins', employees_admins_path %>|
 <%= link_to 'Employees', employees_regulars_path %>|
 <%= link_to 'Inactive', employees_inactive_path %>|
 <%= link_to 'Active', employees_active_path %>|
 <%= link_to '18 years or older', employees_is_18_or_older_path %>|
-<%= link_to 'Younger than 18', employees_younger_than_18_path %>
+<%= link_to 'Younger than 18', employees_younger_than_18_path %>|
+<%= link_to 'Extra Info', employees_proper_names_path %>
+
 
 <br>
 <br>
@@ -21,6 +34,8 @@
   <thead>
     <tr>
       <th>Proper Name</th>
+      <th> Name </th>
+      <th> Currently Working? </th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -29,10 +44,12 @@
     <% @employees.each do |employee| %>
       <tr>
         <td><%= employee.proper_name %></td>
+        <td><%= employee.name %></td>
+        <td><%= employee.currently_working? %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
+<% end %>
 <br>
 

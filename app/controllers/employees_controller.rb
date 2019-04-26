@@ -120,7 +120,7 @@ class EmployeesController < ApplicationController
   end
   
   def active
-      @employees = Employee.current
+      @employees = Employee.active
   end
   
   def is_18_or_older
@@ -131,8 +131,8 @@ class EmployeesController < ApplicationController
       @employees = Employee.younger_than_18
   end
     
-  def proper_name
-      @employees = Employee.proper_name
+  def proper_names
+      @employees = Employee.all
   end
   
   # def noinfo

@@ -33,19 +33,19 @@ class Shift < ApplicationRecord
     scope :by_regular,    -> { joins(:employee).where(role: 'employee') }
 
     def completed?
-        self.shift_jobs > 0
+        not self.shift_jobs.to_a != 0
     end    
 	
 	def end_after_three_hours
-	    self.end_time = 3.hours.since(self.start_time )
+	    self.end_time ||self.end_time = 3.hours.since(self.start_time)
 	end
 	
 	def start_now
-	    self.start_time = Time.now # do I have to do something update or is this fine
+	    self.update_attribute(start_time, Time.now) # do I have to do something update or is this fine
 	end
 	
 	def end_now
-	    self.end_time = Time.now # do I have to do something update or is this fine
+	    self.update_attribute(end_time, Time.now) # do I have to do something update or is this fine
 	end
 	
 	# can only be deleted if the shift is scheduled for today or in the future
@@ -60,6 +60,7 @@ class Shift < ApplicationRecord
     
     #Callbacks
     before_destroy :check_time
+
     private
     def check_time
         if self.date >= Date.today
@@ -69,4 +70,5 @@ class Shift < ApplicationRecord
         end
     end
     
+
 end
