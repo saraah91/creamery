@@ -45,6 +45,9 @@ class Store < ApplicationRecord
   def make_inactive
       self.update_attribute(:active, false)
   end
+  #def role
+  #  self.employee
+  #end
 
 end
 

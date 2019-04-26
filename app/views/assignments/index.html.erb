@@ -1,9 +1,12 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Assignments</h1>
+ <% if logged_in? && current_users_role == "admin" %>
 <div align="right">
 <%= link_to 'New Assignment', new_assignment_path %>
 </div>
+<% end %>
+
 <br>
 <%= link_to 'All', assignments_path %>|
 <%= link_to 'Current', assignments_current_path %>|
@@ -17,6 +20,14 @@
 <%= link_to 'For Role', assignments_for_role_path %>
 <br>
 <br>
+<% if @assignments == nil && current_users_role == "manager"%>
+<p>No employee found</p>
+<%
+  elsif current_users_role == "employee" %>
+  You currently have no assignment
+  <%  else
+  %>
+
 <table class="table">
   <thead>
     
@@ -48,4 +59,4 @@
 
 
 <br>
-
+    <% end %>

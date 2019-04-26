@@ -2,6 +2,16 @@
 
 <h1>Flavors</h1>
 
+ <% if logged_in? && current_users_role == "admin" %>
+<div align="right">
+<%= link_to 'New Flavor', new_flavor_path %>
+</div>
+<% end %>
+<% if @flavors == nil %>
+
+
+<p>We currently do not offer any flavor</p>
+
 <table>
   <thead>
     <tr>
@@ -22,10 +32,9 @@
         <td><%= link_to 'Edit', edit_flavor_path(flavor) %></td>
         <td><%= link_to 'Destroy', flavor, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
-    <% end %>
   </tbody>
 </table>
-
+<% end %>
 <br>
 
-<%= link_to 'New Flavor', new_flavor_path %>
+

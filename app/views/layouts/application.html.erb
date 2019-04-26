@@ -22,16 +22,30 @@
       <font face="Comic Sans MS">
 <div id="mySidenav" class="sidenav">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+     
+    
     <a href="/">Home</a>
     <%= link_to "Stores", stores_path %>
-    <%= link_to "Employees", employees_path %>
-    <%= link_to "Users", users_path %>
-    <%= link_to "Assignments", assignments_path %>
+    
+    <% if logged_in? && (current_users_role == "manager" || current_users_role == "admin" || current_users_role == "employee") %>
     <%= link_to "Flavors", flavors_path %>
     <%= link_to "Jobs", jobs_path %>
+    <% end %>
+    
+    <% if logged_in? && (current_users_role == "manager" || current_users_role == "admin") %>
+    <%= link_to "Employees", employees_path %>
+    <%= link_to "Assignments", assignments_path %>
     <%= link_to "Shifts", shifts_path %>
+    <%= link_to "Assign Flavor to Store", store_flavors_path %>
+    <% end %>
+    
+    <% if logged_in? && current_users_role == "admin" %>
     <%= link_to "Assign to Job", shift_jobs_path %>
+    <%= link_to "Users", users_path %>
+    <% end %>
+
     <% if logged_in? %>
+      <%= link_to "My Info", users_path+"/"+(@current_user.id).to_s %>
       <%= link_to "Logout", logout_path %>
     <% else %>
       <%= link_to "Login", login_path %>

@@ -23,7 +23,6 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   
   #employee routes for scopes
-  get "/employees/new" => "employees#new"
   get "/employees/managers" => "employees#managers"
   get "/employees/regulars" => "employees#regulars"
   get "/employees/admins" => "employees#admins"
@@ -31,6 +30,7 @@ Rails.application.routes.draw do
   get "/employees/active" => "employees#active"
   get "/employees/is_18_or_older" => "employees#is_18_or_older"
   get "/employees/younger_than_18" => "employees#younger_than_18"
+  get "/employees/noinfo" => "employees#noinfo"
   
   #employee routes for methods
   get "/employees/proper_name" => "employees#proper_name"

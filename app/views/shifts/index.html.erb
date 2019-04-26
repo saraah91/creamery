@@ -1,6 +1,19 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Shifts</h1>
+ <% if logged_in? && current_users_role == "admin" || current_users_role == "manager"%>
+<div align="right">
+<%= link_to 'New Shift', new_shift_path %>
+</div>
+<% end %>
+<% if @shifts == nil && current_users_role == "manager"%>
+<p>No shifts found</p>
+<%
+  elsif current_users_role == "employee" %>
+  You're currently not assigned to a shift
+       <%
+    else
+  %>
 
 <table>
   <thead>
@@ -15,6 +28,7 @@
   </thead>
 
   <tbody>
+
     <% @shifts.each do |shift| %>
       <tr>
         <td><%= shift.assignment_id %></td>
@@ -32,4 +46,5 @@
 
 <br>
 
-<%= link_to 'New Shift', new_shift_path %>
+
+    <% end %>

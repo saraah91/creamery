@@ -20,15 +20,18 @@ class Shift < ApplicationRecord
     validates_presence_of :assignment_id, on: :update
 
     #Scopes
-    scope :for_store,     ->(store_id) { where("store_id = ?", store_id) }
-    scope :for_employee,  ->(employee_id) { where("employee_id = ?", employee_id) }
+    scope :for_store,     ->(store_id) { joins(:assignment).where("store_id = ?", store_id) }
+    scope :for_employee,  ->(employee_id) { joins(:assignment).where("employee_id = ?", employee_id) }
     scope :completed,     -> { self.shift.completed }
     scope :incomplete,    -> { (self.shift.completed = false) }
     scope :past,          ->{ where('date < ?', Date.today) } 
     scope :upcoming,      ->{ where('date >= ?', Date.today)  }
     scope :for_next_days, ->(x) { where("date between ? and ?", Date.today, x.days.from_now.to_date) } #pls see
     scope :for_past_days, ->(x) { where("date between ? and ?", x.days.ago.to_date, 1.day.ago.to_date) } #pls see
-    
+    scope :by_store,      -> { joins(:assignment).joins(:store).order('name') }
+    scope :by_employee,   -> { joins(:assignment).joins(:employee).order('last_name, first_name') }
+    scope :by_regular,    -> { joins(:employee).where(role: 'employee') }
+
     def completed?
         self.shift_jobs > 0
     end    

@@ -27,10 +27,11 @@ class Employee < ApplicationRecord
   scope :active,          -> { where(active: true) }
   scope :inactive,        -> { where(active: false) }
   scope :regulars,        -> { where(role: 'employee') }
-  scope :managers,        -> { where(role: 'manager') }
+  scope :managers, -> { where('role = ?', "manager") }
   scope :admins,          -> { where(role: 'admin') }
   scope :alphabetical,    -> { order('last_name, first_name') }
   scope :by_role,    -> { order('role ASC') }
+  scope :for_store,     ->(store_id) { joins(:assignments).where("store_id = ?", store_id) }
 
   
   # Other methods
@@ -58,6 +59,10 @@ class Employee < ApplicationRecord
   
   def age
     (Time.now.to_s(:number).to_i - date_of_birth.to_time.to_s(:number).to_i)/10e9.to_i
+  end
+ 
+  def currently_working?
+    !(self.current_assignment.nil?)
   end
   
   # Misc Constants

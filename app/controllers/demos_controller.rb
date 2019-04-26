@@ -4,13 +4,16 @@ class DemosController < ApplicationController
     
     def create
        user = User.find_by(email: params[:demo][:email].downcase) 
-       puts "******************************* #{params[:demo][:email]}"
+    #   puts "******************************* #{params[:demo][:email]}"
        if user && user.authenticate(params[:demo][:password])
-           puts "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% #{user.email}"
-           puts "Authenticated"
+        #   puts "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% #{user.email}"
+        #   puts "Authenticated"
            login(user)
-           redirect_to user
-       else
+            respond_to do |format|
+                format.html { redirect_to user, notice: 'Welcome '+ user.employee.name }
+                format.json { head :no_content }
+            end       
+        else
            flash.now[:danger] = "Invalid email or password"
            render 'new'
        end

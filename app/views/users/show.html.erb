@@ -11,7 +11,53 @@
   <%= @user.email %>
 </p>
 
+<p>
+  <strong>First name:</strong>
+  <%= @user.employee.first_name %>
+</p>
 
+<p>
+  <strong>Last name:</strong>
+  <%= @user.employee.last_name %>
+</p>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<p>
+  <strong>Ssn:</strong>
+  <%= @user.employee.ssn %>
+</p>
+
+<p>
+  <strong>Date of birth:</strong>
+  <%= @user.employee.date_of_birth %>
+</p>
+
+<p>
+  <strong>Phone:</strong>
+  <%= @user.employee.phone %>
+</p>
+
+<p>
+  <strong>Role:</strong>
+  <%= @user.employee.role %>
+</p>
+
+<p>
+  <strong>Active:</strong>
+  <%= @user.employee.active %>
+</p>
+<p>
+  <strong>Employee:</strong>
+  <%= @user.employee_id %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @user.email %>
+</p>
+<strong>
+Edit your info:
+<%= link_to 'Edit', edit_employee_path(@user.employee.id) %> 
+<br>
+Edit your email & password:
+<%= link_to 'Edit', edit_user_path(@user) %> 
+</strong>

@@ -21,11 +21,10 @@
     <%= form.text_field :description, :class => "form-control" %>
   </div>
 
-  <div class="field">
-    Inactive
-    <%= form.radio_button :active, false, :value => true %>
+  <div class="form-group col-md-6">
+    Active
+    <%= form.select :active, options_for_select([["true"],["false"]]), :class => "dropdown-menu" %>
   </div>
-
 
   <div class="actions">
     <%= form.submit %>

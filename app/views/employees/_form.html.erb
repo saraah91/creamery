@@ -38,11 +38,18 @@
   </div>
   </div>
 
-          
+  <% if current_users_role == "employee" %>
+      <div class="form-group">
+    <% form.label :ssn %>:
+    <%= :ssn %>
+  </div>
+<% else %>
+    
   <div class="form-group">
     <%= form.label :ssn %>
     <%= form.text_field :ssn, :class => "form-control"  %>
   </div>
+  <% end %>
 
 
   <div class="form-group">
@@ -65,8 +72,8 @@
 </div>
 
   <div class="form-group col-md-6">
-    Inactive
-    <%= form.radio_button :active, false, :value => true %>
+    Active
+    <%= form.select :active, options_for_select([["true"],["false"]]), :class => "dropdown-menu" %>
   </div>
 
   <div class="col-auto my-1">

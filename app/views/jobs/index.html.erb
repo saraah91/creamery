@@ -1,5 +1,9 @@
 <p id="notice"><%= notice %></p>
-
+ <% if logged_in? && current_users_role == "admin" %>
+<div align="right">
+<%= link_to 'New Job', new_job_path %>
+</div>
+<% end %>
 <h1>Jobs</h1>
 
 <table>
@@ -31,4 +35,3 @@
 
 <br>
 
-<%= link_to 'New Job', new_job_path %>
