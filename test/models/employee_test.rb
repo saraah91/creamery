@@ -59,7 +59,7 @@ class EmployeeTest < ActiveSupport::TestCase
     # now run the tests:
     # test employees must have unique ssn
     should "force employees to have unique ssn" do
-      repeat_ssn = FactoryBot.build(:employee, first_name: "Steve", last_name: "Crawford", ssn: "231100856")
+      repeat_ssn = FactoryBot.build(:employee, first_name: "Steve", last_name: "Crawford", ssn: "231107856")
       #deny repeat_ssn.valid?
       assert_equal false , repeat_ssn.valid? 
     end

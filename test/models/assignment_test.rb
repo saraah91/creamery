@@ -112,10 +112,53 @@ class AssignmentTest < ActiveSupport::TestCase
       @fred.destroy
     end
 
-    # should "end the current assignment if it exists before adding a new assignment for an employee" do
-    #   @promote_kathryn = FactoryBot.create(:assignment, employee: @kathryn, store: @oakland, start_date: 1.day.ago.to_date, end_date: nil, pay_level: 4)
-    #   @kathryn.assignments.first.end_date
-    #   @promote_kathryn.destroy
-    # end
+    should "have a scope currently_working? that works" do
+      assert_equal true, @ed.currently_working?
+    end
+    
+    should "end upcoming shifts associated with an assignments when it is terminated" do
+      @shift0 = FactoryBot.create(:shift, assignment:@promote_ben, date: Date.tomorrow)
+      @assignment0 = FactoryBot.create(:assignment, employee: @ben, store: @cmu, start_date: Date.current, end_date: nil, pay_level: 5)
+      assert_equal false, Shift.exists?(@shift0.id)
+      @shift0.destroy
+      @assignment0.destroy 
+    end
+
+    should "make assignments that have worked shifts inactive" do
+      @sara = FactoryBot.create(:employee, ssn:"909090909", first_name: "Cindy", last_name: "Crawford", date_of_birth: 17.years.ago.to_date)
+      @sarahome = FactoryBot.create(:store, name: "Home", phone: "412-268-8291")
+      @assign_sara = FactoryBot.create(:assignment, employee: @sara, store: @sarahome)
+      @sara_shift = FactoryBot.create(:shift, assignment: @assign_sara)
+      @sara_shift.update_attribute(:date, Date.current-5)
+      puts "fgdfsdas"
+      puts Assignment.past.for_employee(@sara.id)
+      puts @sara_shift.date < Date.current
+      @sara_shift.destroy
+      assert @sara_shift.destroyed?
+      assert_equal 0, Assignment.past.for_employee(@sara.id).size
+      @sara.destroy
+      @sarahome.destroy
+      @sara_shift.destroy
+      @assign_sara.destroy
+      @sara_shift.destroy
+    end  
+
+    should "end upcoming shifts when assignment is terminated" do
+      @shift = FactoryBot.create(:shift, assignment:@promote_ben, date: Date.tomorrow)
+      @sara = FactoryBot.create(:employee, ssn:"909090909", first_name: "Cindy", last_name: "Crawford", date_of_birth: 17.years.ago.to_date)
+      @sara_assignment = FactoryBot.create(:assignment, employee: @sara, store: @cmu, start_date: Date.current, end_date: nil, pay_level: 5)
+      assert_equal true, Shift.exists?(@shift.id)
+      @sara_assignment.destroy
+      @shift.destroy 
+    end
+    
+    should "end the current assignment if it exists before adding a new assignment for an employee" do
+      @promote_kathryn = FactoryBot.create(:assignment, employee: @kathryn, store: @oakland, start_date: 1.day.ago.to_date, end_date: nil, pay_level: 4)
+      assert_equal Date.current, @kathryn.assignments.first.end_date
+      @promote_kathryn.destroy
+    end
+
+
+    
   end
 end

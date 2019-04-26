@@ -54,7 +54,7 @@ class StoreTest < ActiveSupport::TestCase
     
     #test stores must have unique names
     should "force stores to have unique names" do
-      repeat_store = FactoryBot.build(:store, name: "CMU")
+      repeat_store = FactoryBot.build(:store, name: "Oakland")
       assert_equal false, repeat_store.valid?
     end
     

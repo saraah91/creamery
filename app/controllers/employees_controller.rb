@@ -9,7 +9,9 @@ class EmployeesController < ApplicationController
   
   def showing_rights
       admin = current_users_role== "admin"
-      employee = @employee = current_user.employee
+      if current_users_role == "employee"
+        @employee = current_user.employee
+      end
       manager = current_users_role == "manager" && @employee.current_assignment && current_user.employee.current_assignment && @employee.current_assignment.store_id == current_user.employee.current_assignment.store_id
       unless admin or manager
         respond_to do |format|
@@ -20,7 +22,7 @@ class EmployeesController < ApplicationController
   end
   
   def index_rights
-      unless current_users_role == "admin" || current_users_role = "manager"
+      unless current_users_role == "admin" || current_users_role == "manager"
         respond_to do |format|
           format.html { redirect_to root_url, notice: 'You are not authorized to view this information/perform this action' }
           format.json { head :no_content }
@@ -99,6 +101,12 @@ class EmployeesController < ApplicationController
   end
 
   def destroy
+      if User != nil
+        user = User.find_by_employee_id(@employee.id)
+        if user != nil
+          user.destroy
+        end
+      end
       @employee.destroy
       redirect_to employees_url
   end

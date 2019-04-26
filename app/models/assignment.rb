@@ -26,13 +26,38 @@ class Assignment < ApplicationRecord
   scope :for_role,      ->(role) { joins(:employee).where("role = ?", role) }
   
   # Callbacks
-  after_destroy :end_future_assignments
+  before_create :end_prev_assignments
+  before_destroy :check_past_shifts, :destroy_upcoming_shifts
+  after_update :destroy_upcoming_shifts
+  after_rollback :make_inactive
 
 
   private  
-  def end_future_assignments
-    self.shifts.destroy_all #because shifts belong to assignments right?
+  def destroy_upcoming_shifts
+    self.shifts.upcoming.each do |shift|
+      shift.destroy
+    end
   end
+  
+  def check_past_shifts
+    throw :abort unless self.shifts.past.size == 0
+  end
+  
+  def make_inactive
+    unless !self.destroyed?
+      self.update_attribute(:end_date, Date.current)
+    end
+  end
+  
+  def end_prev_assignments
+    current_assignment = Employee.find(self.employee_id).current_assignment
+    if current_assignment.nil?
+      true 
+    else
+      current_assignment.update_attribute(:end_date, Date.current)
+    end
+  end
+  
   
   def store_is_active_in_system
     active_stores = Store.active.all.map{|e| e.id}

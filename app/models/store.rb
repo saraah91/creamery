@@ -19,7 +19,7 @@ class Store < ApplicationRecord
   # phone can have dashes, spaces, dots and parens, but must be 10 digits
   validates_format_of :phone, with: /\A\(?\d{3}\)?[-. ]?\d{3}[-.]?\d{4}\z/, message: "should be 10 digits (area code needed) and delimited with dashes only"
   # make sure stores have unique names
- # validates_uniqueness_of :name
+  validates_uniqueness_of :name
   
   # Scopes
   scope :alphabetical, -> { order('name') }
